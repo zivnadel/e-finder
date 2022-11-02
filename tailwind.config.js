@@ -7,6 +7,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        primary: "#74BDCB",
+        secondary: "#FFA384",
+      },
       fontFamily: {
         quicksand: ["Quicksand", "sans-serif"],
         lato: ["Lato", "sans-serif"],

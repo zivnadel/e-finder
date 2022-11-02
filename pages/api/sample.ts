@@ -27,9 +27,9 @@ const dataExchangeClient = new DataExchangeClient(dataExchangeClientConfig);
 
 // Product (API) info
 const productInfo: SendApiAssetCommandInput = {
-  DataSetId: "3b5152ecb840cecdf16e11094e3d30ee",
-  RevisionId: "ac6f67fb460338e1a0be98b9741061aa",
-  AssetId: "49ba158448435313f103976b4862789f",
+  DataSetId: process.env.PREDICTHQ_DATASET_ID,
+  RevisionId: process.env.PREDICTHQ_REVISION_ID,
+  AssetId: process.env.PREDICTHQ_ASSET_ID,
 };
 
 // Practically the request object

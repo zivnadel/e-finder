@@ -1,6 +1,5 @@
 import React from "react";
 import useAxios, { SendRequest } from "../hooks/useAxios";
-import useLocation from "../hooks/useLocation";
 import Location from "../models/Location";
 
 // Structure of the context model
@@ -26,8 +25,7 @@ export const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({
   const { isLoading, setIsLoading, error, setError, sendRequest, clearError } =
     useAxios();
 
-  // call useLocation hook to get the current location, and an option to set the location
-  const { location, setLocation } = useLocation(sendRequest);
+  const [location, setLocation] = React.useState<Location | null>(null);
 
   return (
     <AppContext.Provider

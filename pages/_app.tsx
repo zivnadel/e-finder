@@ -3,11 +3,18 @@ import React from "react";
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { AppContextProvider } from "../store/AppContext";
+import NavBar from "../components/ui/nav/NavBar";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <AppContextProvider>
-      <Component {...pageProps} />
+      <nav>
+        <NavBar />
+      </nav>
+      <main>
+        <Component {...pageProps} />
+      </main>
+      <footer></footer>
     </AppContextProvider>
   );
 }

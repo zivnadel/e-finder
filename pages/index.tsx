@@ -1,6 +1,6 @@
 import React from "react";
 
-import Events from "../components/Events";
+import Events from "../components/events/Events";
 import Showcase from "../components/Showcase";
 
 // Main page of the app
