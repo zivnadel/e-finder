@@ -1,4 +1,5 @@
 import React from "react";
+import { Element } from "react-scroll";
 
 import Location from "../../models/Location";
 import AppContext from "../../store/AppContext";
@@ -28,8 +29,8 @@ const Events: React.FC<Props> = ({}) => {
   return isLoading || !location ? (
     <LoadingEvents />
   ) : (
-    <section
-      id="events"
+    <Element
+      name="events"
       className="bg-white flex flex-col w-full items-center justify-center"
     >
       <div className="text-center mt-5 mx-3 md:mx-0 p-3 bg-gradient-to-r from-primary to-secondary rounded-3xl font-quicksand font-bold text-white text-2xl">
@@ -40,7 +41,7 @@ const Events: React.FC<Props> = ({}) => {
         <EventItem />
         <EventItem />
       </div>
-    </section>
+    </Element>
   );
 };
 

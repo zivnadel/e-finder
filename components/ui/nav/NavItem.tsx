@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "react-scroll";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -12,12 +12,13 @@ interface Props {
 
 const NavItem: React.FC<Props> = ({ href, children, className }) => {
   return (
-    <div className="mx-8 transition-all hover:opacity-70">
+    <div className="cursor-pointer mx-8 transition-all hover:opacity-70">
       <Link
+        smooth
+        to={href}
         className={twMerge(
           `drop-shadow-md text-primary text-4xl font-quicksand font-bold ${className}`
         )}
-        href={href}
       >
         {children}
       </Link>
