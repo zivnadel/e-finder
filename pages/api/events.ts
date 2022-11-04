@@ -6,8 +6,9 @@ import {
   DataExchangeClientConfig,
   SendApiAssetCommand,
   SendApiAssetCommandInput,
-  SendApiAssetCommandOutput,
 } from "@aws-sdk/client-dataexchange";
+import EventsRequestModel from "../../models/EventsRequestModel";
+import axios from "axios";
 
 // dataExchangeClientConfig is the configuration object for the DataExchangeClient
 const dataExchangeClientConfig: DataExchangeClientConfig = {
@@ -40,11 +41,60 @@ export default async function handler(
 ) {
   switch (req.method) {
     case "GET":
+      // cache
+      res.setHeader("Cache-Control", "s-maxage=10");
+
       const { lat, lng, radius, active, country } = req.query;
 
       if (!lat || !lng || !radius || !active) {
         return res.status(400).json({ error: "Missing required parameters" });
       }
+
+      // fetch the actual address of the coordinates using the Google Maps API (geocoder)
+
+      let locationData: any;
+      try {
+        // fetch the address from geocode API
+        const response = await axios.get(
+          `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${process.env.GOOGLE_API_KEY}`
+        );
+        locationData = response.data;
+      } catch (error) {
+        return res.status(500).json({ message: "Something went wrong" });
+      }
+
+      if (!locationData || locationData.status === "ZERO_RESULTS") {
+        // if no results, inform the user
+        return res
+          .status(404)
+          .json({ message: "No address found for this location." });
+      }
+
+      // aquire the city, state and country if exists from the address,
+      // and return those. Formatting of the output is done on the frontend.
+      let exists = locationData.results[0].address_components.find(
+        (component: any) => component.types.includes("locality")
+      );
+      const currentCity = exists ? exists.long_name : "";
+
+      exists = locationData.results[0].address_components.find(
+        (component: any) =>
+          component.types.includes("administrative_area_level_1")
+      );
+      const currentState = exists ? exists.long_name : "";
+
+      exists = locationData.results[0].address_components.find(
+        (component: any) => component.types.includes("country")
+      );
+      const currentCountry = exists ? exists.long_name : "";
+
+      const currentLocation = {
+        lat: +lat,
+        lng: +lng,
+        city: currentCity,
+        state: currentState,
+        country: currentCountry,
+      };
 
       /* Construct the request command to the PredictHQ API
          Attributes:
@@ -61,6 +111,7 @@ export default async function handler(
           within: `${radius}km@${lat},${lng}`,
           "active.gte": active as string,
           country: country as string,
+          sort: "local_rank",
         },
         RequestHeaders: {
           "Content-Type": "application/json",
@@ -68,18 +119,27 @@ export default async function handler(
       };
       const sendApiAssetCommand = new SendApiAssetCommand(sendAssetPredictHQ);
 
-      let commandOutput: SendApiAssetCommandOutput;
+      let data: EventsRequestModel;
 
       // Send the request using DataExchangeClient
       try {
-        commandOutput = await dataExchangeClient.send(sendApiAssetCommand);
-        console.log(commandOutput);
+        const commandOutput = await dataExchangeClient.send(
+          sendApiAssetCommand
+        );
+        if (commandOutput.Body) {
+          // parse the response if there is a body
+          data = JSON.parse(commandOutput.Body);
+          console.log(data.results);
+        } else {
+          return res.status(500).json({ message: "No data returned" });
+        }
       } catch (err) {
         console.error(err);
-        return res.status(500).json({ error: err });
+        return res.status(500).json({ message: err });
       }
 
-      return res.status(200).json(commandOutput!);
+      // return the response
+      return res.status(200).json({ data, currentLocation });
 
     default:
       res.status(405).json({ message: "Method not allowed" });

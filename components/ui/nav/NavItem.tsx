@@ -17,7 +17,7 @@ const NavItem: React.FC<Props> = ({ href, children, className }) => {
         smooth
         to={href}
         className={twMerge(
-          `drop-shadow-md text-primary text-4xl font-quicksand font-bold ${className}`
+          `drop-shadow-md text-primary text-4xl font-bold ${className}`
         )}
       >
         {children}

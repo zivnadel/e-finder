@@ -9,7 +9,7 @@ import NavItem from "./NavItem";
 
 const NavBar: React.FC = () => {
   return (
-    <div className="z-10 w-full fixed flex items-center justify-center h-28 bg-white/60">
+    <div className="z-10 w-full fixed flex items-center justify-center h-28 bg-white/70">
       <NavItem href="events" className="text-primary">
         Events
       </NavItem>

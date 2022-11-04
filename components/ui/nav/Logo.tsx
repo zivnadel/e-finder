@@ -8,7 +8,7 @@ const Logo: React.FC = () => {
     <div className="transition-all hover:scale-125">
       <button
         onClick={animateScroll.scrollToTop}
-        className="font-quicksand drop-shadow-md text-8xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary"
+        className="drop-shadow-md text-8xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary"
       >
         E
       </button>
