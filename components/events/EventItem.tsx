@@ -1,7 +1,7 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 import CategoryModel from "../../models/CategoryModel";
-import { LatLng } from "../../models/Location";
+import { LatLng } from "../../models/LocationModel";
 import { monthNames, stripLeadingZerosDate } from "../../utils/dateUtils";
 import Divider from "../ui/Divider";
 import Category from "./Category";

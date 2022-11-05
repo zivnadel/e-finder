@@ -56,7 +56,7 @@ export default async function handler(
       try {
         // fetch the address from geocode API
         const response = await axios.get(
-          `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${process.env.GOOGLE_API_KEY}`
+          `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${process.env.NEXT_PUBLUC_GOOGLE_API_KEY}`
         );
         locationData = response.data;
       } catch (error) {
