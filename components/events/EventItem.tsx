@@ -42,42 +42,46 @@ const Event: React.FC<Props> = ({
   const endDate = stripLeadingZerosDate(end.split("T")[0]).split("-");
   const endTime = end.split("T")[1].split(":");
 
-  // create the paragraph for displaying the dates and hours
+  // create and format the paragraph for displaying the dates and hours
   let dateParagraph: JSX.Element;
 
   if (startDate.join("-") === endDate.join("-")) {
     dateParagraph = (
-      <div className="mt-3 font-bold">
-        <p className="inline text-green-700">
-          {`${monthNames[+startDate[1] - 1]} ${startDate[2]}, ${startDate[0]}`}{" "}
-          |{" "}
-        </p>
-        <p className="inline text-green-500">
-          {startTime.join(":") === endTime.join(":")
-            ? `${startTime[0]}:${startTime[1]}`
-            : `${startTime[0]}:${startTime[1]} - ${endTime[0]}:${endTime[1]}`}
-        </p>
-      </div>
+      <p className="font-bold text-green-700">
+        {`${monthNames[+startDate[1] - 1]} ${startDate[2]}, ${startDate[0]}`}{" "}
+        <span className="text-black">|</span>{" "}
+        {startTime.join(":") === endTime.join(":")
+          ? `${startTime[0]}:${startTime[1]}`
+          : `${startTime[0]}:${startTime[1]} - ${endTime[0]}:${endTime[1]}`}
+      </p>
     );
   } else {
     dateParagraph = (
-      <p className="mt-2 font-semibold">
-        From{" "}
-        <span className="text-rose-500">{`${monthNames[+startDate[1] - 1]} ${
-          startDate[2]
-        }, ${startDate[0]}`}</span>{" "}
-        to{" "}
-        <span className="text-rose-500">{`${monthNames[+endDate[1] - 1]} ${
-          endDate[2]
-        }, ${endDate[0]}`}</span>{" "}
-      </p>
+      <div className="font-semibold">
+        <p>
+          From{" "}
+          <span className="text-green-700 font-bold">{`${
+            monthNames[+startDate[1] - 1]
+          } ${startDate[2]}, ${startDate[0]}`}</span>{" "}
+          at{" "}
+          <span className="text-green-700 font-bold">{`${startTime[0]}:${startTime[1]}`}</span>
+        </p>
+        <p>
+          to{" "}
+          <span className="text-green-700 font-bold">{`${
+            monthNames[+endDate[1] - 1]
+          } ${endDate[2]}, ${endDate[0]}`}</span>{" "}
+          at{" "}
+          <span className="text-green-700 font-bold">{`${endTime[0]}:${endTime[1]}`}</span>
+        </p>
+      </div>
     );
   }
 
   return (
     <div
       className={twMerge(
-        `flex flex-col opacity-60 shadow-xl p-5 rounded-lg transition-all hover:opacity-100 hover:scale-105 ${className}`
+        `flex flex-col opacity-60 cursor-pointer shadow-xl p-5 rounded-lg transition-all hover:opacity-100 hover:scale-105 ${className}`
       )}
     >
       <EventIcons rank={rank} isPrivate={isPrivate} location={location} />
@@ -87,10 +91,15 @@ const Event: React.FC<Props> = ({
           {description ||
             "This event has no description! Click to get more information"}
         </p>
-        {dateParagraph}
-        {/* isActive indicator **/}
-        {(new Date() >= new Date(start) && new Date() <= new Date(end)) ||
-          (true && <p className="mt-3 font-bold text-green-500">Active now</p>)}
+        <div className="flex items-center justify-between">
+          <div className="self-start mt-2">{dateParagraph}</div>
+          {/* isActive indicator **/}
+          {new Date() >= new Date(start) && new Date() <= new Date(end) && (
+            <div className="bg-gradient-to-r from-green-400 to-green-800 flex items-center justify-center w-1/6 rounded-lg p-0.5 m-2">
+              <p className="text-white font bold">Active</p>
+            </div>
+          )}
+        </div>{" "}
       </div>
       <Category category={category} />
       <Divider />

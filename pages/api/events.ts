@@ -7,7 +7,7 @@ import {
   SendApiAssetCommand,
   SendApiAssetCommandInput,
 } from "@aws-sdk/client-dataexchange";
-import EventsRequestModel from "../../models/EventsRequestModel";
+import EventsResponseModel from "../../models/EventsResponseModel";
 import axios from "axios";
 
 // dataExchangeClientConfig is the configuration object for the DataExchangeClient
@@ -44,10 +44,10 @@ export default async function handler(
       // cache
       res.setHeader("Cache-Control", "s-maxage=10");
 
-      const { lat, lng, radius, active, country } = req.query;
+      const { lat, lng, radius, active, country, sort } = req.query;
 
       if (!lat || !lng || !radius || !active) {
-        return res.status(400).json({ error: "Missing required parameters" });
+        return res.status(400).json({ message: "Missing required parameters" });
       }
 
       // fetch the actual address of the coordinates using the Google Maps API (geocoder)
@@ -89,8 +89,8 @@ export default async function handler(
       const currentCountry = exists ? exists.long_name : "";
 
       const currentLocation = {
-        lat: +lat,
-        lng: +lng,
+        lat: +lat!,
+        lng: +lng!,
         city: currentCity,
         state: currentState,
         country: currentCountry,
@@ -98,9 +98,9 @@ export default async function handler(
 
       /* Construct the request command to the PredictHQ API
          Attributes:
+         country: filters only events that are in the given country. not required.
          within: the radius of the circle to search within (in meters). The radius is from the given coord, in lat and lng
          active.gte: filters only events that are active during the given date (will be the current day for the frontend user). gte = greater than (and) equal.
-         country: filters only events that are in the given country. not required.
 
       **/
       const sendAssetPredictHQ: SendApiAssetCommandInput = {
@@ -111,7 +111,8 @@ export default async function handler(
           within: `${radius}km@${lat},${lng}`,
           "active.gte": active as string,
           country: country as string,
-          sort: "local_rank",
+          sort: (sort as string) || "start",
+          limit: "200",
         },
         RequestHeaders: {
           "Content-Type": "application/json",
@@ -119,7 +120,7 @@ export default async function handler(
       };
       const sendApiAssetCommand = new SendApiAssetCommand(sendAssetPredictHQ);
 
-      let data: EventsRequestModel;
+      let data: EventsResponseModel & { error: string; status: number };
 
       // Send the request using DataExchangeClient
       try {
@@ -128,14 +129,15 @@ export default async function handler(
         );
         if (commandOutput.Body) {
           // parse the response if there is a body
-          data = JSON.parse(commandOutput.Body);
-          console.log(data.results);
+          data = JSON.parse(commandOutput.Body!);
+          if (data.error) {
+            throw new Error(data.error);
+          }
         } else {
           return res.status(500).json({ message: "No data returned" });
         }
-      } catch (err) {
-        console.error(err);
-        return res.status(500).json({ message: err });
+      } catch (error) {
+        return res.status(500).json({ message: "Something went wrong" });
       }
 
       // return the response

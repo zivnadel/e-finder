@@ -6,20 +6,27 @@ import { GiMusicalScore as Concerts } from "react-icons/gi";
 import {
   AiOutlineGlobal as Expos,
   AiFillClockCircle as DaylightSavings,
+  AiFillNotification as Protests,
 } from "react-icons/ai";
 import {
   MdFestival as Festivals,
   MdSportsScore as Sports,
+  MdLocalAirport as AirportDelays,
 } from "react-icons/md";
 import {
   FaPaintBrush as PerformingArts,
   FaSchool as SchoolHolidays,
+  FaHeartbeat as HealthWarnings,
 } from "react-icons/fa";
 import {
   BsSunglasses as Observances,
   BsStars as PublicHolidays,
+  BsFillCloudLightningFill as SevereWeather,
+  BsFillExclamationTriangleFill as Disasters,
 } from "react-icons/bs";
 import { IoNewspaperSharp as Politics } from "react-icons/io5";
+import { HiUserGroup as Conferences } from "react-icons/hi";
+import { BiTargetLock as TerrorAttacks } from "react-icons/bi";
 
 import CategoryModel from "../../models/CategoryModel";
 import ColoredWrapper from "../ui/wrappers/ColoredWrapper";
@@ -42,10 +49,15 @@ const Category: React.FC<Props> = ({ category }) => {
   });
   categoryName = categoryName.join(" ");
 
+  // customized icon and color for each category
   switch (category) {
     case "community":
       className = "bg-gradient-to-r from-green-400 to-green-800";
       icon = <Community className="text-xl" />;
+      break;
+    case "conferences":
+      className = "bg-gradient-to-r from-emerald-400 to-emerald-800";
+      icon = <Conferences className="text-xl" />;
       break;
     case "academic":
       className = "bg-gradient-to-r from-orange-400 to-orange-800";
@@ -90,6 +102,30 @@ const Category: React.FC<Props> = ({ category }) => {
     case "daylight-savings":
       className = "bg-gradient-to-r from-cyan-400 to-cyan-800";
       icon = <DaylightSavings className="text-xl" />;
+      break;
+    case "protests":
+      className = "bg-gradient-to-r from-teal-400 to-teal-800";
+      icon = <Protests className="text-xl" />;
+      break;
+    case "health-warnings":
+      className = "bg-gradient-to-r from-rose-400 to-rose-800";
+      icon = <HealthWarnings className="text-xl" />;
+      break;
+    case "severe-weather":
+      className = "bg-gradient-to-r from-orange-400 to-orange-800";
+      icon = <SevereWeather className="text-xl" />;
+      break;
+    case "disasters":
+      className = "bg-gradient-to-r from-red-600 to-red-900";
+      icon = <Disasters className="text-xl" />;
+      break;
+    case "terror-attacks":
+      className = "bg-gradient-to-r from-red-600 to-red-900";
+      icon = <TerrorAttacks className="text-xl" />;
+      break;
+    case "airport-delays":
+      className = "bg-gradient-to-r from-violet-400 to-violet-800";
+      icon = <AirportDelays className="text-xl" />;
       break;
   }
 

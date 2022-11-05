@@ -8,10 +8,10 @@ import NavBar from "../components/ui/nav/NavBar";
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <AppContextProvider>
-      <nav className="font-quicksand">
+      <nav>
         <NavBar />
       </nav>
-      <main className="font-quicksand">
+      <main>
         <Component {...pageProps} />
       </main>
       <footer></footer>

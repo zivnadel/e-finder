@@ -1,5 +1,7 @@
 import CategoryModel from "./CategoryModel";
 
+// a type representing the event as it is returned from the API
+
 export default interface EventModel {
   relevance: number;
   id: string;

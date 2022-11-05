@@ -5,7 +5,7 @@ export interface LatLng {
 }
 
 // custom Location object structure
-export default interface Location {
+export default interface LocationModel {
   lat: number;
   lng: number;
   city: string;

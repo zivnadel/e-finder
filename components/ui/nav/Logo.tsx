@@ -5,7 +5,7 @@ import { animateScroll } from "react-scroll";
 
 const Logo: React.FC = () => {
   return (
-    <div className="transition-all hover:scale-125">
+    <div className="transition-all cursor-pointer hover:scale-125">
       <button
         onClick={animateScroll.scrollToTop}
         className="drop-shadow-md text-8xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary"

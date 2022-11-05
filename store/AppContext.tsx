@@ -1,11 +1,11 @@
 import React from "react";
 import useAxios, { SendRequest } from "../hooks/useAxios";
-import Location from "../models/Location";
+import LocationModel from "../models/LocationModel";
 
 // Structure of the context model
 export interface AppContextModel {
-  location: Location | null;
-  setLocation: React.Dispatch<React.SetStateAction<Location | null>>;
+  location: LocationModel | null;
+  setLocation: React.Dispatch<React.SetStateAction<LocationModel | null>>;
   isLoading: boolean;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   error: string;
@@ -25,7 +25,7 @@ export const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({
   const { isLoading, setIsLoading, error, setError, sendRequest, clearError } =
     useAxios();
 
-  const [location, setLocation] = React.useState<Location | null>(null);
+  const [location, setLocation] = React.useState<LocationModel | null>(null);
 
   return (
     <AppContext.Provider

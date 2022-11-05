@@ -29,20 +29,22 @@ const EventIcons: React.FC<Props> = ({ rank, isPrivate, location }) => {
     ) / 1000;
 
   return (
-    <div className="flex items-center justify-between m-4">
-      <EventIcon
-        className={`bg-gradient-to-r ${
-          rank >= 80
-            ? "from-green-400 to-green-800"
-            : rank >= 50
-            ? "from-yellow-400 to-yellow-800"
-            : rank >= 20
-            ? "from-red-400 to-red-600"
-            : "from-red-700 to-red-900"
-        }`}
-        text={(rank / 10).toString()}
-        icon={<AiFillStar />}
-      />
+    <div className="flex items-center justify-center my-4 gap-4">
+      {rank > 0 && (
+        <EventIcon
+          className={`bg-gradient-to-r ${
+            rank >= 80
+              ? "from-green-400 to-green-800"
+              : rank >= 50
+              ? "from-yellow-400 to-yellow-800"
+              : rank >= 20
+              ? "from-red-400 to-red-600"
+              : "from-red-700 to-red-900"
+          }`}
+          text={(rank / 10).toString()}
+          icon={<AiFillStar />}
+        />
+      )}{" "}
       <EventIcon
         className={`bg-gradient-to-r ${
           isPrivate ? "from-red-600 to-red-800" : "from-blue-400 to-blue-800"

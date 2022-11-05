@@ -1,3 +1,5 @@
+// a type representing the options of a an event category
+
 type CategoryModel =
   | "sports"
   | "academic"
@@ -11,6 +13,12 @@ type CategoryModel =
   | "observances"
   | "politics"
   | "public-holidays"
-  | "school-holidays";
+  | "school-holidays"
+  | "severe-weather"
+  | "airport-delays"
+  | "disasters"
+  | "terror-attacks"
+  | "health-warnings"
+  | "protests";
 
 export default CategoryModel;

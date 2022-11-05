@@ -1,4 +1,6 @@
 import React from "react";
+import { Transition } from "@headlessui/react";
+
 import Logo from "./Logo";
 import NavItem from "./NavItem";
 
@@ -8,16 +10,55 @@ import NavItem from "./NavItem";
 // on the sides
 
 const NavBar: React.FC = () => {
+  const [visible, setVisible] = React.useState(true);
+  const [scrollPosition, setScrollPosition] = React.useState(0);
+
+  const handleScroll = React.useCallback(() => {
+    if (window.scrollY > scrollPosition) {
+      // hide the navbar if the user is scrolling down
+      setVisible(false);
+    } else {
+      // show the navbar if the user is scrolling up
+      setVisible(true);
+    }
+    // update the scroll position
+    setScrollPosition(window.scrollY);
+  }, [scrollPosition]);
+
+  // bind and unbind the scroll event listener on mount and unmount
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.addEventListener("scroll", handleScroll);
+    }
+    return () => {
+      if (typeof window !== "undefined") {
+        window.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, [handleScroll, scrollPosition]);
+
   return (
-    <div className="z-10 w-full fixed flex items-center justify-center h-28 bg-white/70">
-      <NavItem href="events" className="text-primary">
-        Events
-      </NavItem>
-      <Logo />
-      <NavItem href="" className="text-secondary">
-        About
-      </NavItem>
-    </div>
+    <Transition
+      /** Animate the navbar */
+      unmount={false}
+      enter="transition-opacity duration-500"
+      enterFrom="opacity-0"
+      enterTo="opacity-100"
+      leave="transition-opacity duration-500"
+      leaveFrom="opacity-100"
+      leaveTo="opacity-0"
+      show={visible}
+    >
+      <div className="z-10 w-full fixed flex items-center justify-center h-28 bg-white/70">
+        <NavItem href="events" className="text-primary">
+          Events
+        </NavItem>
+        <Logo />
+        <NavItem href="" className="text-secondary">
+          About
+        </NavItem>
+      </div>
+    </Transition>
   );
 };
 
