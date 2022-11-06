@@ -78,13 +78,9 @@ const Events: React.FC<Props> = ({}) => {
       ) : (
         <div className="bg-white flex flex-col w-full items-center justify-center">
           <EventsTitle location={location} />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 m-5">
-            {events.results.map((event, index) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 m-5 items-center">
+            {events.results.map((event) => (
               <EventItem
-                /* Move box to the middle if it is the last item **/
-                className={`${
-                  index === events.results.length - 1 ? "lg:col-start-2" : ""
-                }`}
                 key={event.id}
                 start={event.start}
                 end={event.end}

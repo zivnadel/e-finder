@@ -7,7 +7,9 @@ import { BsChevronDown } from "react-icons/bs";
 const Showcase: React.FC = () => {
   return (
     <div className="text-center text-white h-screen overflow-auto bg-gradient-to-r from-primary to-secondary flex items-center justify-center flex-col p-3 md:p-0">
-      <h1 className="drop-shadow-md mb-2 font-bold text-8xl">E-Finder</h1>
+      <h1 className="drop-shadow-md mb-2 font-bold text-[5.5rem] sm:text-8xl">
+        E-Finder
+      </h1>
       <h2 className="drop-shadow-sm mb-1 font-semibold text-xl">
         Explore exciting and thrilling events around you
       </h2>

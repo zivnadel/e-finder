@@ -56,7 +56,7 @@ export default async function handler(
       try {
         // fetch the address from geocode API
         const response = await axios.get(
-          `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${process.env.NEXT_PUBLUC_GOOGLE_API_KEY}`
+          `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`
         );
         locationData = response.data;
       } catch (error) {
@@ -78,12 +78,6 @@ export default async function handler(
       const currentCity = exists ? exists.long_name : "";
 
       exists = locationData.results[0].address_components.find(
-        (component: any) =>
-          component.types.includes("administrative_area_level_1")
-      );
-      const currentState = exists ? exists.long_name : "";
-
-      exists = locationData.results[0].address_components.find(
         (component: any) => component.types.includes("country")
       );
       const currentCountry = exists ? exists.long_name : "";
@@ -92,7 +86,6 @@ export default async function handler(
         lat: +lat!,
         lng: +lng!,
         city: currentCity,
-        state: currentState,
         country: currentCountry,
       };
 
@@ -101,8 +94,8 @@ export default async function handler(
          country: filters only events that are in the given country. not required.
          within: the radius of the circle to search within (in meters). The radius is from the given coord, in lat and lng
          active.gte: filters only events that are active during the given date (will be the current day for the frontend user). gte = greater than (and) equal.
-
       **/
+
       const sendAssetPredictHQ: SendApiAssetCommandInput = {
         ...predictHQ,
         Method: "GET",

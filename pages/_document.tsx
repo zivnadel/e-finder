@@ -5,6 +5,7 @@ export default function Document() {
     <Html>
       <Head />
       <body className="font-quicksand">
+        <div id="modals"></div>
         <Main />
         <NextScript />
       </body>

@@ -3,7 +3,7 @@ import { AiFillStar, AiFillLock } from "react-icons/ai";
 import { HiUserGroup } from "react-icons/hi";
 import { GiPathDistance } from "react-icons/gi";
 import { BsPinMapFill } from "react-icons/bs";
-import { LatLng } from "../../models/Location";
+import { LatLng } from "../../models/LocationModel";
 import AppContext from "../../store/AppContext";
 import distance from "../../utils/distance";
 import EventIcon from "./EventIcon";
@@ -29,7 +29,7 @@ const EventIcons: React.FC<Props> = ({ rank, isPrivate, location }) => {
     ) / 1000;
 
   return (
-    <div className="flex items-center justify-center my-4 gap-4">
+    <div className="flex items-center justify-center m-4 gap-4">
       {rank > 0 && (
         <EventIcon
           className={`bg-gradient-to-r ${
@@ -58,17 +58,13 @@ const EventIcons: React.FC<Props> = ({ rank, isPrivate, location }) => {
         }
       />
       <EventIcon
-        className="text-lg text-center bg-gradient-to-r from-pink-300 to-purple-500"
+        className="text-md text-center bg-gradient-to-r from-pink-300 to-purple-500"
         text={`${
           distanceInKm.toFixed().toString().length > 2
             ? distanceInKm.toFixed()
             : distanceInKm.toFixed(1)
         }km`}
         icon={<GiPathDistance />}
-      />
-      <EventIcon
-        className="bg-gradient-to-r from-orange-400 to-orange-800"
-        icon={<BsPinMapFill className="text-4xl" />}
       />
     </div>
   );

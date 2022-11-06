@@ -6,6 +6,8 @@ interface Props {
   className?: string;
   text?: string;
   icon: React.ReactNode;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
 }
 
 // component wrapping a cirular icon with a colored background
@@ -13,10 +15,12 @@ interface Props {
 
 const EventIcon: React.FC<Props> = ({ text, icon, className }) => {
   return (
-    <ColoredWrapper className={twMerge(`text-3xl ${className}`)}>
-      <span className="text-3xl">{icon}</span>
-      {text && <h3 className="font-bold">{text}</h3>}{" "}
-    </ColoredWrapper>
+    <div>
+      <ColoredWrapper className={twMerge(`text-3xl ${className}`)}>
+        <span className="text-3xl">{icon}</span>
+        {text && <h3 className="font-bold">{text}</h3>}{" "}
+      </ColoredWrapper>
+    </div>
   );
 };
 

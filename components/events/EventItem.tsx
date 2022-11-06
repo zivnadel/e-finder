@@ -79,32 +79,34 @@ const Event: React.FC<Props> = ({
   }
 
   return (
-    <div
-      className={twMerge(
-        `flex flex-col opacity-60 cursor-pointer shadow-xl p-5 rounded-lg transition-all hover:opacity-100 hover:scale-105 ${className}`
-      )}
-    >
-      <EventIcons rank={rank} isPrivate={isPrivate} location={location} />
-      <div className="my-3">
-        <h1 className="text-3xl font-bold">{title}</h1>
-        <p className="text-gray-500">
-          {description ||
-            "This event has no description! Click to get more information"}
-        </p>
-        <div className="flex items-center justify-between">
-          <div className="self-start mt-2">{dateParagraph}</div>
-          {/* isActive indicator **/}
-          {new Date() >= new Date(start) && new Date() <= new Date(end) && (
-            <div className="bg-gradient-to-r from-green-400 to-green-800 flex items-center justify-center w-1/6 rounded-lg p-0.5 m-2">
-              <p className="text-white font bold">Active</p>
-            </div>
-          )}
-        </div>{" "}
+    <>
+      <div
+        className={twMerge(
+          `flex flex-col opacity-60 cursor-pointer shadow-xl p-5 rounded-lg transition-all hover:opacity-100 hover:scale-105 ${className}`
+        )}
+      >
+        <EventIcons rank={rank} isPrivate={isPrivate} location={location} />
+        <div className="my-3">
+          <h1 className="text-3xl font-bold">{title}</h1>
+          <p className="text-gray-500">
+            {description ||
+              "This event has no description! Click to get more information"}
+          </p>
+          <div className="flex items-center justify-between">
+            <div className="self-start mt-2">{dateParagraph}</div>
+            {/* isActive indicator **/}
+            {new Date() >= new Date(start) && new Date() <= new Date(end) && (
+              <div className="bg-gradient-to-r from-green-400 to-green-800 flex items-center justify-center w-1/6 rounded-lg p-0.5 m-2">
+                <p className="text-white font bold px-1">Active</p>
+              </div>
+            )}
+          </div>{" "}
+        </div>
+        <Category category={category} />
+        <Divider />
+        <Labels labels={labels} />
       </div>
-      <Category category={category} />
-      <Divider />
-      <Labels labels={labels} />
-    </div>
+    </>
   );
 };
 
