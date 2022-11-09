@@ -1,6 +1,6 @@
 import React from "react";
 
-import Location from "../../models/LocationModel";
+import Location from "../../../models/LocationModel";
 
 interface Props {
   location: Location;

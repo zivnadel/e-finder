@@ -1,43 +1,36 @@
 import React from "react";
 import { Element } from "react-scroll";
-import EventsResponseModel from "../../models/EventsResponseModel";
+import useGeocode from "../../hooks/useGeocode";
 
-import LocationModel from "../../models/LocationModel";
-import AppContext from "../../store/AppContext";
+import EventsContext from "../../store/EventsContext";
+import FetchContext from "../../store/FetchContext";
 import ErrorSection from "../ui/ErrorSection";
 import LoadingEvents from "../ui/loading/LoadingEvents";
 import LoadingTitle from "../ui/loading/LoadingTitle";
-import EventItem from "./EventItem";
-import EventsTitle from "./EventsTitle";
-
-interface Props {}
+import NavigatePages from "../ui/nav/NavigatePages";
+import EventItem from "./eventItem/EventItem";
+import EventsControl from "./eventsControl/EventsControl";
+import EventsTitle from "./eventsControl/EventsTitle";
 
 // The event section in the page (grid layout)
 
-const Events: React.FC<Props> = ({}) => {
-  const { sendRequest, setLocation, isLoading, location, error, setError } =
-    React.useContext(AppContext)!;
+const Events: React.FC = () => {
+  const { location, setLocation, events } = React.useContext(EventsContext)!;
+  const { isLoading, error, setError } = React.useContext(FetchContext)!;
 
-  const [events, setEvents] = React.useState<EventsResponseModel | null>(null);
+  const geocode = useGeocode();
 
-  // callback for fetching data from the API
-  // after receiving the current location of the user
+  // callback for fetching the location using Google Geocode API
   const handleCurrentPosition = React.useCallback(
     async (position: GeolocationPosition) => {
-      const response = await sendRequest<{
-        data: EventsResponseModel;
-        currentLocation: LocationModel;
-      }>(
-        `/api/events?lat=${position.coords.latitude}&lng=${
-          position.coords.longitude
-        }&radius=100&active=${new Date().toISOString()}`
+      const location = await geocode(
+        position.coords.latitude,
+        position.coords.longitude
       );
-      if (response) {
-        setLocation(response.currentLocation);
-        setEvents(response.data);
-      }
+
+      setLocation(location);
     },
-    [sendRequest, setLocation]
+    [geocode, setLocation]
   );
 
   // callback for handling error when requesting the user's location
@@ -56,11 +49,13 @@ const Events: React.FC<Props> = ({}) => {
 
   // fetch the current location and the events in the area when the component mounts
   React.useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      handleCurrentPosition,
-      handleGeolocationError
-    );
-  }, [handleCurrentPosition, handleGeolocationError]);
+    if (!events) {
+      navigator.geolocation.getCurrentPosition(
+        handleCurrentPosition,
+        handleGeolocationError
+      );
+    }
+  }, [events, handleCurrentPosition, handleGeolocationError]);
 
   // display the events in a grid layout
   return (
@@ -70,18 +65,28 @@ const Events: React.FC<Props> = ({}) => {
       ) : isLoading || !location || !events ? (
         <>
           {/* If the location is loading, show the loading title animation **/}
-          {!location && <LoadingTitle />}
+          {location ? (
+            <div className="flex items-center justify-center w-full">
+              <EventsTitle location={location} />
+            </div>
+          ) : (
+            <LoadingTitle />
+          )}
 
-          {/* If the events are loading, show the loading events animation **/}
-          {!events && <LoadingEvents />}
+          <LoadingEvents />
         </>
       ) : (
         <div className="bg-white flex flex-col w-full items-center justify-center">
           <EventsTitle location={location} />
+          <EventsControl />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 m-5 items-center">
-            {events.results.map((event) => (
+            {events.results.map((event, index) => (
               <EventItem
                 key={event.id}
+                className={
+                  index === events.results.length - 1 ? "col-start-2" : ""
+                }
+                id={event.id}
                 start={event.start}
                 end={event.end}
                 location={{ lat: event.location[1], lng: event.location[0] }}
@@ -96,6 +101,7 @@ const Events: React.FC<Props> = ({}) => {
           </div>
         </div>
       )}
+      {events && <NavigatePages />}
     </Element>
   );
 };

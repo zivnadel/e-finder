@@ -2,11 +2,10 @@ import React from "react";
 import { AiFillStar, AiFillLock } from "react-icons/ai";
 import { HiUserGroup } from "react-icons/hi";
 import { GiPathDistance } from "react-icons/gi";
-import { BsPinMapFill } from "react-icons/bs";
-import { LatLng } from "../../models/LocationModel";
-import AppContext from "../../store/AppContext";
-import distance from "../../utils/distance";
+import { LatLng } from "../../../models/LocationModel";
+import distance from "../../../utils/distance";
 import EventIcon from "./EventIcon";
+import EventsContext from "../../../store/EventsContext";
 
 interface Props {
   rank: number;
@@ -14,18 +13,18 @@ interface Props {
   location: LatLng;
 }
 
-// wrapper for the 4 icons in the event item
+// wrapper for the 3 icons in the event item
 
 const EventIcons: React.FC<Props> = ({ rank, isPrivate, location }) => {
-  const appContext = React.useContext(AppContext);
+  const { location: currentLocation } = React.useContext(EventsContext)!;
 
   // calculate the distance from the distance icon
   const distanceInKm =
     distance(
       location.lat,
       location.lng,
-      appContext?.location!.lat!,
-      appContext?.location!.lng!
+      currentLocation!.lat!,
+      currentLocation!.lng!
     ) / 1000;
 
   return (

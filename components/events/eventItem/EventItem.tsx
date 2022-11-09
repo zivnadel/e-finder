@@ -1,9 +1,10 @@
+import { useRouter } from "next/router";
 import React from "react";
 import { twMerge } from "tailwind-merge";
-import CategoryModel from "../../models/CategoryModel";
-import { LatLng } from "../../models/LocationModel";
-import { monthNames, stripLeadingZerosDate } from "../../utils/dateUtils";
-import Divider from "../ui/Divider";
+import CategoryModel from "../../../models/CategoryModel";
+import { LatLng } from "../../../models/LocationModel";
+import { monthNames, stripLeadingZerosDate } from "../../../utils/dateUtils";
+import Divider from "../../ui/Divider";
 import Category from "./Category";
 import EventIcons from "./EventIcons";
 import Labels from "./Labels";
@@ -12,6 +13,7 @@ import Labels from "./Labels";
 
 interface Props {
   className?: string;
+  id: string;
   title: string;
   description?: string;
   rank: number;
@@ -25,6 +27,7 @@ interface Props {
 
 const Event: React.FC<Props> = ({
   className,
+  id,
   title,
   description,
   rank,
@@ -35,6 +38,12 @@ const Event: React.FC<Props> = ({
   category,
   labels,
 }) => {
+  const router = useRouter();
+
+  const EventClickedHandler = (e: React.MouseEvent<HTMLDivElement>) => {
+    router.push(`/event/${id}`);
+  };
+
   // transform the date strings to more readable format
   const startDate = stripLeadingZerosDate(start.split("T")[0]).split("-");
   const startTime = start.split("T")[1].split(":");
@@ -79,34 +88,33 @@ const Event: React.FC<Props> = ({
   }
 
   return (
-    <>
-      <div
-        className={twMerge(
-          `flex flex-col opacity-60 cursor-pointer shadow-xl p-5 rounded-lg transition-all hover:opacity-100 hover:scale-105 ${className}`
-        )}
-      >
-        <EventIcons rank={rank} isPrivate={isPrivate} location={location} />
-        <div className="my-3">
-          <h1 className="text-3xl font-bold">{title}</h1>
-          <p className="text-gray-500">
-            {description ||
-              "This event has no description! Click to get more information"}
-          </p>
-          <div className="flex items-center justify-between">
-            <div className="self-start mt-2">{dateParagraph}</div>
-            {/* isActive indicator **/}
-            {new Date() >= new Date(start) && new Date() <= new Date(end) && (
-              <div className="bg-gradient-to-r from-green-400 to-green-800 flex items-center justify-center w-1/6 rounded-lg p-0.5 m-2">
-                <p className="text-white font bold px-1">Active</p>
-              </div>
-            )}
-          </div>{" "}
-        </div>
-        <Category category={category} />
-        <Divider />
-        <Labels labels={labels} />
+    <div
+      onClick={EventClickedHandler}
+      className={twMerge(
+        `flex flex-col opacity-60 cursor-pointer shadow-xl p-5 rounded-lg transition-all hover:opacity-100 hover:scale-105 ${className}`
+      )}
+    >
+      <EventIcons rank={rank} isPrivate={isPrivate} location={location} />
+      <div className="my-3">
+        <h1 className="text-3xl font-bold">{title}</h1>
+        <p className="max-h-24 overflow-clip text-gray-500">
+          {description ||
+            "This event has no description! Click to get more information"}
+        </p>
+        <div className="flex items-center justify-between">
+          <div className="self-start mt-2">{dateParagraph}</div>
+          {/* isActive indicator **/}
+          {new Date() >= new Date(start) && new Date() <= new Date(end) && (
+            <div className="bg-gradient-to-r from-green-400 to-green-800 flex items-center justify-center w-1/6 rounded-lg p-0.5 m-2">
+              <p className="text-white font bold px-1">Active</p>
+            </div>
+          )}
+        </div>{" "}
       </div>
-    </>
+      <Category category={category} />
+      <Divider />
+      <Labels labels={labels} />
+    </div>
   );
 };
 

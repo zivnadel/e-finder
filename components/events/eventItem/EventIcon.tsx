@@ -1,6 +1,6 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
-import ColoredWrapper from "../ui/wrappers/ColoredWrapper";
+import ColoredWrapper from "../../ui/wrappers/ColoredWrapper";
 
 interface Props {
   className?: string;

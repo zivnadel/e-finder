@@ -28,8 +28,8 @@ import { IoNewspaperSharp as Politics } from "react-icons/io5";
 import { HiUserGroup as Conferences } from "react-icons/hi";
 import { BiTargetLock as TerrorAttacks } from "react-icons/bi";
 
-import CategoryModel from "../../models/CategoryModel";
-import ColoredWrapper from "../ui/wrappers/ColoredWrapper";
+import CategoryModel from "../../../models/CategoryModel";
+import ColoredWrapper from "../../ui/wrappers/ColoredWrapper";
 
 interface Props {
   category: CategoryModel;
