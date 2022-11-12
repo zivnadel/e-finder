@@ -11,11 +11,17 @@ interface Props {
   rank: number;
   isPrivate: boolean;
   location: LatLng;
+  category: string;
 }
 
 // wrapper for the 3 icons in the event item
 
-const EventIcons: React.FC<Props> = ({ rank, isPrivate, location }) => {
+const EventIcons: React.FC<Props> = ({
+  rank,
+  isPrivate,
+  location,
+  category,
+}) => {
   const { location: currentLocation } = React.useContext(EventsContext)!;
 
   // calculate the distance from the distance icon
@@ -40,14 +46,16 @@ const EventIcons: React.FC<Props> = ({ rank, isPrivate, location }) => {
               ? "from-red-400 to-red-600"
               : "from-red-700 to-red-900"
           }`}
+          tooltip="The local rank score of the event"
           text={(rank / 10).toString()}
           icon={<AiFillStar />}
         />
-      )}{" "}
+      )}
       <EventIcon
         className={`bg-gradient-to-r ${
           isPrivate ? "from-red-600 to-red-800" : "from-blue-400 to-blue-800"
         }`}
+        tooltip={isPrivate ? "Private Event" : "Public Event"}
         icon={
           isPrivate ? (
             <AiFillLock className="text-4xl" />
@@ -56,15 +64,25 @@ const EventIcons: React.FC<Props> = ({ rank, isPrivate, location }) => {
           )
         }
       />
-      <EventIcon
-        className="text-md text-center bg-gradient-to-r from-pink-300 to-purple-500"
-        text={`${
-          distanceInKm.toFixed().toString().length > 2
-            ? distanceInKm.toFixed()
-            : distanceInKm.toFixed(1)
-        }km`}
-        icon={<GiPathDistance />}
-      />
+      {![
+        "public-holidays",
+        "school-holidays",
+        "observances",
+        "politics",
+        "daylight-savings",
+        "academic",
+      ].includes(category) && (
+        <EventIcon
+          className="text-md text-center bg-gradient-to-r from-pink-300 to-purple-500"
+          tooltip="Distance (km) from you to the location of the event"
+          text={`${
+            distanceInKm.toFixed().toString().length > 2
+              ? distanceInKm.toFixed()
+              : distanceInKm.toFixed(1)
+          }km`}
+          icon={<GiPathDistance />}
+        />
+      )}
     </div>
   );
 };

@@ -18,7 +18,7 @@ const Labels: React.FC<Props> = ({ labels }) => {
         <>
           {index < 4 && (
             <ColoredWrapper
-              key={label}
+              key={index}
               className="my-1 inline-flex flex-row w-fit h-12 bg-gradient-to-r from-gray-500 to-gray-700 mx-1"
             >
               <BiChevronRight className="text-2xl mr-2" />

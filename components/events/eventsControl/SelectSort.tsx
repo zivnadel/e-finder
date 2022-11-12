@@ -1,6 +1,6 @@
 import React from "react";
 
-import { BsCheckLg } from "react-icons/bs";
+import { GoCheck } from "react-icons/go";
 
 import DropList from "../../ui/DropList";
 
@@ -11,10 +11,8 @@ const sortOptions = [
 ];
 
 interface Props {
-  selected: "date" | "rate" | "distance";
-  setSelected: React.Dispatch<
-    React.SetStateAction<"date" | "rate" | "distance">
-  >;
+  selected: string;
+  setSelected: React.Dispatch<React.SetStateAction<string>>;
 }
 
 // a dropdown list that allows the user to select a sort option
@@ -26,7 +24,7 @@ const SelectSort: React.FC<Props> = ({ selected, setSelected }) => {
       selected={selected}
       setSelected={setSelected}
       name="Sort by"
-      selectedIcon={<BsCheckLg />}
+      selectedIcon={<GoCheck />}
     />
   );
 };

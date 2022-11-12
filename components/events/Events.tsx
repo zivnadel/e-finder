@@ -8,6 +8,7 @@ import ErrorSection from "../ui/ErrorSection";
 import LoadingEvents from "../ui/loading/LoadingEvents";
 import LoadingTitle from "../ui/loading/LoadingTitle";
 import NavigatePages from "../ui/nav/NavigatePages";
+import Title from "../ui/Title";
 import EventItem from "./eventItem/EventItem";
 import EventsControl from "./eventsControl/EventsControl";
 import EventsTitle from "./eventsControl/EventsTitle";
@@ -57,9 +58,25 @@ const Events: React.FC = () => {
     }
   }, [events, handleCurrentPosition, handleGeolocationError]);
 
+  // a function to calculate the shifting in the grid for the last elements
+  const calcShift = (index: number) => {
+    const len = events!.results.length;
+
+    if (index % 3 === 0 && index === len - 1) {
+      return "col-start-2";
+    }
+
+    if (index % 3 === 1 && index === len - 1) {
+      return "col-start-3";
+    }
+
+    return undefined;
+  };
+
   // display the events in a grid layout
   return (
     <Element name="events">
+      {/** Tooltip component for every component in the view that uses a tooltip */}
       {error ? (
         <ErrorSection error={error} />
       ) : isLoading || !location || !events ? (
@@ -79,29 +96,31 @@ const Events: React.FC = () => {
         <div className="bg-white flex flex-col w-full items-center justify-center">
           <EventsTitle location={location} />
           <EventsControl />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 m-5 items-center">
-            {events.results.map((event, index) => (
-              <EventItem
-                key={event.id}
-                className={
-                  index === events.results.length - 1 ? "col-start-2" : ""
-                }
-                id={event.id}
-                start={event.start}
-                end={event.end}
-                location={{ lat: event.location[1], lng: event.location[0] }}
-                category={event.category}
-                title={event.title}
-                description={event.description}
-                isPrivate={event.private}
-                labels={event.labels}
-                rank={event.local_rank}
-              />
-            ))}
-          </div>
+          {events.results.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 m-5 items-center">
+              {events.results.map((event, index) => (
+                <EventItem
+                  key={event.id}
+                  className={calcShift(index)}
+                  id={event.id}
+                  start={event.start}
+                  end={event.end}
+                  location={{ lat: event.location[1], lng: event.location[0] }}
+                  category={event.category}
+                  title={event.title}
+                  description={event.description}
+                  isPrivate={event.private}
+                  labels={event.labels}
+                  rank={event.local_rank}
+                />
+              ))}
+            </div>
+          ) : (
+            <Title text="No events found." />
+          )}
         </div>
       )}
-      {events && <NavigatePages />}
+      {events && !error && <NavigatePages />}
     </Element>
   );
 };

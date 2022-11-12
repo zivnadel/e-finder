@@ -6,6 +6,7 @@ interface Props {
   children: React.ReactNode;
   useMinMaxWidth?: boolean;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
+  dataTip?: string;
 }
 
 // component for wrapping a component with a colored background (and other styles)
@@ -15,9 +16,11 @@ const ColoredWrapper: React.FC<Props> = ({
   children,
   useMinMaxWidth = false,
   onClick,
+  dataTip,
 }) => {
   return (
     <div
+      data-tip={dataTip}
       onClick={onClick}
       className={twMerge(
         `p-2 ${

@@ -1,6 +1,7 @@
 import React from "react";
 
 import { BsBookmarkCheck } from "react-icons/bs";
+import CategoryModel from "../../../models/CategoryModel";
 
 import DropList from "../../ui/DropList";
 
@@ -35,8 +36,8 @@ const categories = [
 ];
 
 interface Props {
-  selected: string[];
-  setSelected: React.Dispatch<React.SetStateAction<string[]>>;
+  selected: CategoryModel[];
+  setSelected: React.Dispatch<React.SetStateAction<CategoryModel[]>>;
 }
 
 // this component is a dropdown list that allows the user to select a category

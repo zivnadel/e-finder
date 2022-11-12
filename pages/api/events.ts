@@ -12,6 +12,9 @@ export default async function handler(
 ) {
   switch (req.method) {
     case "GET":
+      // cache
+      res.setHeader("Cache-Control", "s-maxage=10");
+
       const sendAssetPredictHQ: SendApiAssetCommandInput = {
         ...predictHQ,
         Method: "GET",
@@ -23,7 +26,7 @@ export default async function handler(
       };
       const sendApiAssetCommand = new SendApiAssetCommand(sendAssetPredictHQ);
 
-      let data: EventsResponseModel & { error: string; status: number };
+      let data: EventsResponseModel;
 
       // Send the request using DataExchangeClient defined in aws-data-exchange.ts
       try {
@@ -32,7 +35,7 @@ export default async function handler(
         ).send(sendApiAssetCommand);
         if (commandOutput.Body) {
           // parse the response if there is a body
-          data = JSON.parse(commandOutput.Body!);
+          data = JSON.parse(commandOutput.Body);
           if (data.error) {
             throw new Error(data.error);
           }

@@ -2,23 +2,16 @@ import React, { Fragment } from "react";
 
 import { BsChevronExpand } from "react-icons/bs";
 import { Listbox, Transition } from "@headlessui/react";
+import { capitalizeAndRemoveDashes } from "../../utils/stringUtils";
 
 interface Props {
-  options: { name: string; color: string; bgColor: string }[];
+  options: { name: string | number; color: string; bgColor: string }[];
   selected: any;
   setSelected: React.Dispatch<React.SetStateAction<any>>;
   name: string;
   selectedIcon: JSX.Element;
   multiple?: boolean;
 }
-
-// this function sanitizes the selected option(s) to be displayed in the dropdown list
-const capitalizeAndRemoveDashes = (str: string) => {
-  return str
-    .split("-")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
-};
 
 // this component is a dropdown list that allows the user to select an option
 // it is handled by the headlessui library
@@ -66,6 +59,7 @@ const FilterCategory: React.FC<Props> = ({
                       }`}
                     >
                       {capitalizeAndRemoveDashes(option.name)}
+                      {typeof option.name === "number" && "km"}
                     </span>
                     {selected ? (
                       <span

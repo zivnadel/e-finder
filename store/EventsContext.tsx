@@ -1,5 +1,6 @@
 import React from "react";
 import useEvents from "../hooks/useEvents";
+import CategoryModel from "../models/CategoryModel";
 import EventsResponseModel from "../models/EventsResponseModel";
 import LocationModel from "../models/LocationModel";
 
@@ -10,10 +11,14 @@ type EventsContextModel = {
   setLocation: React.Dispatch<React.SetStateAction<LocationModel | null>>;
   page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
-  sort: "date" | "rate" | "distance";
-  setSort: React.Dispatch<React.SetStateAction<"date" | "rate" | "distance">>;
-  categories: string[];
-  setCategories: React.Dispatch<React.SetStateAction<string[]>>;
+  sort: string;
+  setSort: React.Dispatch<React.SetStateAction<string>>;
+  categories: CategoryModel[];
+  setCategories: React.Dispatch<React.SetStateAction<CategoryModel[]>>;
+  radius: number;
+  setRadius: React.Dispatch<React.SetStateAction<number>>;
+  query: string;
+  setQuery: React.Dispatch<React.SetStateAction<string>>;
 };
 
 // This react context is used to provide the data from the useEvents hook
@@ -35,6 +40,10 @@ export const EventsContextProvider: React.FC<{ children: React.ReactNode }> = ({
     setSort,
     categories,
     setCategories,
+    radius,
+    setRadius,
+    query,
+    setQuery,
   } = useEvents();
 
   return (
@@ -50,6 +59,10 @@ export const EventsContextProvider: React.FC<{ children: React.ReactNode }> = ({
         setSort,
         categories,
         setCategories,
+        radius,
+        setRadius,
+        query,
+        setQuery,
       }}
     >
       {children}

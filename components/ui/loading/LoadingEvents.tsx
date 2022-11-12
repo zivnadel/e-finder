@@ -13,6 +13,12 @@ const LoadingEvents: React.FC = () => {
       <LoadingItem />
       <LoadingItem />
       <LoadingItem />
+      <LoadingItem />
+      <LoadingItem />
+      <LoadingItem />
+      <span className="col-start-2">
+        <LoadingItem />
+      </span>
     </div>
   );
 };

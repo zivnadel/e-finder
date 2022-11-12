@@ -17,6 +17,7 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.6.0",
     "react-scroll": "^1.8.8",
+    "react-tooltip": "^4.4.3",
     "tailwind-merge": "^1.7.0"
   },
   "devDependencies": {

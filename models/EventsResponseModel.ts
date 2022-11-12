@@ -9,4 +9,6 @@ export default interface EventsResponseModel {
   previous: string | null;
   next: string | null;
   results: EventModel[];
+  error?: string;
+  status?: number;
 }
