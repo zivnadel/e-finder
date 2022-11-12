@@ -20,7 +20,7 @@ const SquareButton: React.FC<Props> = ({
       data-tip={dataTip}
       type={type}
       onClick={onClick}
-      className="p-4 ml-3 shadow-md text-sm font-medium text-white bg-gradient-to-r from-primary to-secondary rounded-lg hover:opacity-70 hover:scale-105 transition-all"
+      className="p-4 shadow-md text-sm font-medium text-white bg-gradient-to-r from-primary to-secondary rounded-lg hover:opacity-70 hover:scale-105 transition-all"
     >
       {children}
     </button>

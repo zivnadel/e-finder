@@ -16,47 +16,16 @@ import EventsTitle from "./eventsControl/EventsTitle";
 // The event section in the page (grid layout)
 
 const Events: React.FC = () => {
-  const { location, setLocation, events } = React.useContext(EventsContext)!;
-  const { isLoading, error, setError } = React.useContext(FetchContext)!;
+  const { location, events } = React.useContext(EventsContext)!;
+  const { isLoading, error } = React.useContext(FetchContext)!;
 
-  const geocode = useGeocode();
+  const { getCurrentPosition } = useGeocode();
 
-  // callback for fetching the location using Google Geocode API
-  const handleCurrentPosition = React.useCallback(
-    async (position: GeolocationPosition) => {
-      const location = await geocode(
-        position.coords.latitude,
-        position.coords.longitude
-      );
-
-      setLocation(location);
-    },
-    [geocode, setLocation]
-  );
-
-  // callback for handling error when requesting the user's location
-  const handleGeolocationError = React.useCallback(
-    (error: GeolocationPositionError) => {
-      if (error.message === "User denied Geolocation") {
-        setError(
-          "Location access denied. Please allow location access to explore events near you."
-        );
-      } else {
-        setError("An error occurred while fetching your location.");
-      }
-    },
-    [setError]
-  );
-
-  // fetch the current location and the events in the area when the component mounts
   React.useEffect(() => {
     if (!events) {
-      navigator.geolocation.getCurrentPosition(
-        handleCurrentPosition,
-        handleGeolocationError
-      );
+      getCurrentPosition();
     }
-  }, [events, handleCurrentPosition, handleGeolocationError]);
+  }, [events, getCurrentPosition]);
 
   // a function to calculate the shifting in the grid for the last elements
   const calcShift = (index: number) => {
