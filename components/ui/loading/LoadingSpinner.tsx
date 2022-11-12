@@ -12,7 +12,7 @@ const LoadingSpinner: React.FC<Props> = ({ asOverlay, transparent }) => {
     <div
       className={`${
         asOverlay &&
-        "z-[4] h-full w-full absolute top-0 left-0 flex justify-center items-center"
+        "h-full w-full absolute top-0 left-0 flex justify-center items-center"
       } ${!transparent && "bg-white/90"}`}
     >
       <div role="status">

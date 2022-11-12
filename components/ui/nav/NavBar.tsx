@@ -40,14 +40,14 @@ const NavBar: React.FC = () => {
   return (
     <Transition
       /** Animate the navbar */
+      show={visible}
       unmount={false}
-      enter="transition-opacity duration-500"
+      enter="transition-opacity ease-in-out duration-500"
       enterFrom="opacity-0"
       enterTo="opacity-100"
-      leave="transition-opacity duration-500"
+      leave="transition-opacity ease-in-out duration-500"
       leaveFrom="opacity-100"
       leaveTo="opacity-0"
-      show={visible}
     >
       <div className="z-20 w-full fixed flex items-center justify-center h-28 bg-white/70">
         <NavItem href="events" className="text-primary">

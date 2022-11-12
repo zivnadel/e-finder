@@ -76,20 +76,14 @@ const Events: React.FC = () => {
   // display the events in a grid layout
   return (
     <Element name="events">
-      {/** Tooltip component for every component in the view that uses a tooltip */}
+      {/** The search and control panel of the events grid */}
       {error ? (
         <ErrorSection error={error} />
       ) : isLoading || !location || !events ? (
         <>
           {/* If the location is loading, show the loading title animation **/}
-          {location ? (
-            <div className="flex items-center justify-center w-full">
-              <EventsTitle location={location} />
-            </div>
-          ) : (
-            <LoadingTitle />
-          )}
-
+          {location ? <EventsTitle location={location} /> : <LoadingTitle />}
+          {events && <EventsControl />}
           <LoadingEvents />
         </>
       ) : (

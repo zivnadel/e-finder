@@ -59,7 +59,7 @@ const EventsControl: React.FC = () => {
   };
 
   return (
-    <>
+    <div className="flex flex-col items-center justify-center w-full">
       <div className="flex flex-col items-center justify-center gap-2 m-3 p-5 rounded-xl shadow-lg w-[90%] lg:w-3/6 bg-white">
         <Search />
         <div className="flex items-center justify-center gap-3">
@@ -100,7 +100,7 @@ const EventsControl: React.FC = () => {
           sort={selectedSort}
         />
       </Transition>
-    </>
+    </div>
   );
 };
 
