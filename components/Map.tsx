@@ -18,11 +18,14 @@ const Map: React.FC<Props> = ({ width, height, latLng }) => {
 
   const [map, setMap] = React.useState<google.maps.Map | null>(null);
 
-  const onLoad = React.useCallback((map: google.maps.Map) => {
-    const bounds = new window.google.maps.LatLngBounds(latLng);
-    map.fitBounds(bounds);
-    setMap(map);
-  }, []);
+  const onLoad = React.useCallback(
+    (map: google.maps.Map) => {
+      const bounds = new window.google.maps.LatLngBounds(latLng);
+      map.fitBounds(bounds);
+      setMap(map);
+    },
+    [latLng]
+  );
 
   const onUnmount = React.useCallback((map: google.maps.Map) => {
     setMap(null);

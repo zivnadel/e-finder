@@ -41,14 +41,13 @@ const useEvents = () => {
 
   // construct the query URL
   const constructUrl = React.useCallback(() => {
-    const { lat, lng, country, id } = location || {};
+    const { lat, lng, country } = location || {};
 
     const params: any = {
       within: `${radius}km@${lat},${lng}`,
       "location_around.origin": `${lat},${lng}`,
       country,
       "active.gte": new Date().toISOString(),
-      "place.scope": id,
       sort: getSortOption(),
       offset: page * 10 - 10,
       category: categories.join(","),
