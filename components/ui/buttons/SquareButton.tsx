@@ -1,6 +1,8 @@
 import React from "react";
+import { twMerge } from "tailwind-merge";
 
 interface Props {
+  className?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   dataTip?: string;
   type: "submit" | "button" | "reset";
@@ -10,6 +12,7 @@ interface Props {
 // a UI component to be used as squared button with gradient background
 
 const SquareButton: React.FC<Props> = ({
+  className,
   onClick,
   dataTip,
   type = "button",
@@ -20,7 +23,9 @@ const SquareButton: React.FC<Props> = ({
       data-tip={dataTip}
       type={type}
       onClick={onClick}
-      className="p-4 shadow-md text-sm font-medium text-white bg-gradient-to-r from-primary to-secondary rounded-lg hover:opacity-70 hover:scale-105 transition-all"
+      className={twMerge(
+        `p-4 shadow-md text-sm font-medium text-white bg-gradient-to-r from-primary to-secondary rounded-lg hover:opacity-70 hover:scale-105 transition-all ${className}`
+      )}
     >
       {children}
     </button>

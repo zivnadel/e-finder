@@ -131,7 +131,7 @@ const Category: React.FC<Props> = ({ category }) => {
 
   return (
     <ColoredWrapper
-      className={`my-3 max-w-md w-fit flex-row ${className}`}
+      className={`my-3 md:my-0 max-w-md w-fit flex-row ${className}`}
       useMinMaxWidth
     >
       <span className="mx-3">{icon}</span>

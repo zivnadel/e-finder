@@ -91,7 +91,7 @@ const Event: React.FC<Props> = ({
     <div
       onClick={EventClickedHandler}
       className={twMerge(
-        `flex flex-col opacity-60 cursor-pointer shadow-xl p-5 rounded-lg transition-all hover:opacity-100 hover:scale-105 ${className}`
+        `flex flex-col h-full overflow-hidden opacity-60 cursor-pointer shadow-xl p-5 rounded-lg transition-all hover:opacity-100 hover:scale-105 ${className}`
       )}
     >
       <EventIcons
@@ -110,7 +110,7 @@ const Event: React.FC<Props> = ({
           <div className="self-start mt-2">{dateParagraph}</div>
           {/* isActive indicator **/}
           {new Date() >= new Date(start) && new Date() <= new Date(end) && (
-            <div className="bg-gradient-to-r from-green-400 to-green-800 flex items-center justify-center w-1/6 rounded-lg p-0.5 m-2">
+            <div className="bg-gradient-to-r from-green-400 to-green-800 flex items-center justify-center w-[25%] rounded-lg p-0.5 m-2">
               <p className="text-white font bold px-1">Active</p>
             </div>
           )}

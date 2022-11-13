@@ -22,7 +22,10 @@ interface Props {
 const FiltersDisplay: React.FC<Props> = ({ categories, radius, sort }) => {
   const constructCategoryTooltip = () => {
     let tooltip = "";
-    for (let i = 2; i < categories.length; i++) {
+
+    const start = screen.width > 768 ? 2 : 1;
+
+    for (let i = start; i < categories.length; i++) {
       tooltip += capitalizeAndRemoveDashes(categories[i]);
 
       if (i !== categories.length - 1) {
@@ -39,14 +42,17 @@ const FiltersDisplay: React.FC<Props> = ({ categories, radius, sort }) => {
   return (
     <div className="flex flex-col justify-center items-center p-4 w-auto bg-white shadow-lg m-5 rounded-xl gap-3">
       <Title text="Filters" className="p-2 text-lg" />
-      <div className="flex gap-2 items-center justify-center">
+      <div className="flex flex-col md:flex-row gap-2 items-center justify-center">
         {categories.map((category, index) => {
-          if (index > 1) {
+          if (
+            (screen.width > 768 && index > 1) ||
+            (screen.width <= 768 && index > 0)
+          ) {
             return;
           }
           return <Category key={category} category={category} />;
         })}
-        {categories.length > 2 && (
+        {screen.width > 768 && categories.length > 2 && (
           <TransparentWrapper
             dataTip={constructCategoryTooltip()}
             icon={<AiOutlinePlus />}
@@ -54,8 +60,16 @@ const FiltersDisplay: React.FC<Props> = ({ categories, radius, sort }) => {
             {categories.length - 2} More
           </TransparentWrapper>
         )}
+        {screen.width <= 768 && categories.length > 1 && (
+          <TransparentWrapper
+            dataTip={constructCategoryTooltip()}
+            icon={<AiOutlinePlus />}
+          >
+            {categories.length - 1} More
+          </TransparentWrapper>
+        )}
         {categories.length > 0 && (
-          <span className="h-8 m-3 w-0.5 rounded-full bg-gray-400"></span>
+          <span className="h-0.5 md:h-8 m-3 w-8 md:w-0.5 rounded-full bg-gray-400"></span>
         )}
         <TransparentWrapper icon={<GiPathDistance />}>
           Radius: <span className="font-semibold">{radius}km</span>

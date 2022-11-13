@@ -3,6 +3,7 @@ import React from "react";
 
 import { BiCheck } from "react-icons/bi";
 import { IoClose } from "react-icons/io5";
+import useGeocode from "../../../hooks/useGeocode";
 
 import CategoryModel from "../../../models/CategoryModel";
 import EventsContext from "../../../store/EventsContext";
@@ -21,15 +22,18 @@ import SortOrderButton from "./SortOrderButton";
 
 const EventsControl: React.FC = () => {
   const {
+    location,
     sort,
     setSort,
     categories,
     setCategories,
     radius,
     setRadius,
+    setQuery,
     setPage,
   } = React.useContext(EventsContext)!;
 
+  const { getCurrentPosition } = useGeocode();
   const [selectedCategories, setSelectedCategories] =
     React.useState<CategoryModel[]>(categories);
   const [selectedSort, setSelectedSort] = React.useState<string>(sort);
@@ -49,6 +53,11 @@ const EventsControl: React.FC = () => {
     setSelectedSort("date");
     setRadius(5);
     setSelectedRadius(5);
+    setQuery("");
+
+    if (location?.q) {
+      getCurrentPosition();
+    }
     if (categories.length > 0) setCategories([]);
     if (selectedCategories.length > 0) setSelectedCategories([]);
     setPage(1);
@@ -60,9 +69,9 @@ const EventsControl: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center w-full">
-      <div className="flex flex-col items-center justify-center gap-2 m-3 p-5 rounded-xl shadow-lg w-[90%] lg:w-3/6 bg-white">
+      <div className="flex flex-col items-center justify-center gap-2 m-3 p-5 rounded-xl shadow-lg w-[90%] lg:w-4/6 bg-white">
         <Search />
-        <div className="flex items-center justify-center gap-3">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-3">
           <FilterCategory
             selected={selectedCategories}
             setSelected={setSelectedCategories}
@@ -72,13 +81,15 @@ const EventsControl: React.FC = () => {
             setSelected={setSelectedRadius}
           />
           <SelectSort selected={selectedSort} setSelected={setSelectedSort} />
-          <SortOrderButton sort={sort} setSort={setSort} />
-          <RoundedButton dataTip="Apply Filters" onClick={applyFilters}>
-            <BiCheck className="text-5xl" />
-          </RoundedButton>
-          <RoundedButton dataTip="Clear Filters" onClick={clearFilters}>
-            <IoClose className="text-5xl" />
-          </RoundedButton>
+          <div className="flex gap-3 md:inline-flex">
+            <SortOrderButton sort={sort} setSort={setSort} />
+            <RoundedButton dataTip="Apply Filters" onClick={applyFilters}>
+              <BiCheck className="text-5xl" />
+            </RoundedButton>
+            <RoundedButton dataTip="Clear Filters" onClick={clearFilters}>
+              <IoClose className="text-5xl" />
+            </RoundedButton>
+          </div>
         </div>
       </div>
       <ShowFiltersButton

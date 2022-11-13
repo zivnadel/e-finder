@@ -21,7 +21,7 @@ const Logo: React.FC = () => {
     <div className="transition-all cursor-pointer hover:scale-125">
       <button
         onClick={logoClickedHandler}
-        className="drop-shadow-md text-8xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary"
+        className="drop-shadow-md text-7xl md:text-8xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary"
       >
         E
       </button>

@@ -32,11 +32,11 @@ const Events: React.FC = () => {
     const len = events!.results.length;
 
     if (index % 3 === 0 && index === len - 1) {
-      return "col-start-2";
+      return "lg:col-start-2";
     }
 
     if (index % 3 === 1 && index === len - 1) {
-      return "col-start-3";
+      return "lg:col-start-3";
     }
 
     return undefined;

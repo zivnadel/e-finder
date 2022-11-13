@@ -30,13 +30,13 @@ const NavItem: React.FC<Props> = ({ href, children, className }) => {
   };
 
   return (
-    <div className="cursor-pointer mx-8 transition-all hover:opacity-70">
+    <div className="cursor-pointer transition-all hover:opacity-70">
       <Link
         smooth
         onClick={navItemClickedHandler}
         to={href}
         className={twMerge(
-          `drop-shadow-md text-primary text-4xl font-bold ${className}`
+          `drop-shadow-md text-primary text-3xl md:text-4xl font-bold ${className}`
         )}
       >
         {children}

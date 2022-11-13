@@ -49,7 +49,7 @@ const NavBar: React.FC = () => {
       leaveFrom="opacity-100"
       leaveTo="opacity-0"
     >
-      <div className="z-20 w-full fixed flex items-center justify-center h-28 bg-white/70">
+      <div className="z-20 w-full fixed flex items-center justify-center gap-4 md:gap-8 h-20 md:h-28 bg-white/70">
         <NavItem href="events" className="text-primary">
           Events
         </NavItem>
