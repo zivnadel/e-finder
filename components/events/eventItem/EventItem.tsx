@@ -91,7 +91,7 @@ const Event: React.FC<Props> = ({
     <div
       onClick={EventClickedHandler}
       className={twMerge(
-        `flex flex-col h-full overflow-hidden opacity-60 cursor-pointer shadow-xl p-5 rounded-lg transition-all hover:opacity-100 hover:scale-105 ${className}`
+        `flex flex-col opacity-60 cursor-pointer shadow-xl p-5 rounded-lg transition-all hover:opacity-100 hover:scale-105 ${className}`
       )}
     >
       <EventIcons
