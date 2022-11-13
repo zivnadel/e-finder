@@ -91,7 +91,7 @@ const Event: React.FC<Props> = ({
     <div
       onClick={EventClickedHandler}
       className={twMerge(
-        `flex flex-col opacity-60 cursor-pointer shadow-xl p-5 rounded-lg transition-all hover:opacity-100 hover:scale-105 ${className}`
+        `flex flex-col h-auto md:h-full overflow-auto md:overflow-hidden opacity-60 cursor-pointer shadow-xl p-5 rounded-lg transition-all hover:opacity-100 hover:scale-105 ${className}`
       )}
     >
       <EventIcons
@@ -102,7 +102,7 @@ const Event: React.FC<Props> = ({
       />
       <div className="my-3">
         <h1 className="text-3xl font-bold">{title}</h1>
-        <p className="max-h-24 overflow-clip text-gray-500">
+        <p className="max-h-max md:max-h-24 overflow-auto md:overflow-clip text-gray-500">
           {description ||
             "This event has no description! Click to get more information"}
         </p>
