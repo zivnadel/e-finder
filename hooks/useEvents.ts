@@ -1,5 +1,6 @@
 import React from "react";
 import CategoryModel from "../models/CategoryModel";
+import EventModel from "../models/EventModel";
 import EventsResponseModel from "../models/EventsResponseModel";
 import LocationModel from "../models/LocationModel";
 import FetchContext from "../store/FetchContext";
@@ -19,6 +20,9 @@ const useEvents = () => {
   const [categories, setCategories] = React.useState<CategoryModel[]>([]);
   const [location, setLocation] = React.useState<LocationModel | null>(null);
   const [events, setEvents] = React.useState<EventsResponseModel | null>(null);
+  const [selectedEvent, setSelectedEvent] = React.useState<EventModel | null>(
+    null
+  );
   const [radius, setRadius] = React.useState(5);
   const [query, setQuery] = React.useState("");
 
@@ -83,6 +87,8 @@ const useEvents = () => {
   return {
     events,
     setEvents,
+    selectedEvent,
+    setSelectedEvent,
     location,
     setLocation,
     page,

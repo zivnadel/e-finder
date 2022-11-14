@@ -1,12 +1,15 @@
 import React from "react";
 import useEvents from "../hooks/useEvents";
 import CategoryModel from "../models/CategoryModel";
+import EventModel from "../models/EventModel";
 import EventsResponseModel from "../models/EventsResponseModel";
 import LocationModel from "../models/LocationModel";
 
 type EventsContextModel = {
   events: EventsResponseModel | null;
   setEvents: React.Dispatch<React.SetStateAction<EventsResponseModel | null>>;
+  selectedEvent: EventModel | null;
+  setSelectedEvent: React.Dispatch<React.SetStateAction<EventModel | null>>;
   location: LocationModel | null;
   setLocation: React.Dispatch<React.SetStateAction<LocationModel | null>>;
   page: number;
@@ -32,6 +35,8 @@ export const EventsContextProvider: React.FC<{ children: React.ReactNode }> = ({
   const {
     events,
     setEvents,
+    selectedEvent,
+    setSelectedEvent,
     location,
     setLocation,
     page,
@@ -51,6 +56,8 @@ export const EventsContextProvider: React.FC<{ children: React.ReactNode }> = ({
       value={{
         events,
         setEvents,
+        selectedEvent,
+        setSelectedEvent,
         location,
         setLocation,
         page,

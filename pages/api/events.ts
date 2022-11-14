@@ -43,6 +43,7 @@ export default async function handler(
           return res.status(500).json({ message: "No data returned" });
         }
       } catch (error) {
+        console.error(error);
         return res.status(500).json({ message: "Something went wrong" });
       }
 

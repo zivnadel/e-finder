@@ -15,6 +15,9 @@ module.exports = {
         quicksand: ["Quicksand", "sans-serif"],
         lato: ["Lato", "sans-serif"],
       },
+      backgroundImage: {
+        "academic": "url('/academic.jpg')",
+      }
     },
   },
   plugins: [],

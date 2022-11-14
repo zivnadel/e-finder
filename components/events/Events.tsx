@@ -65,16 +65,7 @@ const Events: React.FC = () => {
                 <EventItem
                   key={event.id}
                   className={calcShift(index)}
-                  id={event.id}
-                  start={event.start}
-                  end={event.end}
-                  location={{ lat: event.location[1], lng: event.location[0] }}
-                  category={event.category}
-                  title={event.title}
-                  description={event.description}
-                  isPrivate={event.private}
-                  labels={event.labels}
-                  rank={event.local_rank}
+                  event={event}
                 />
               ))}
             </div>

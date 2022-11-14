@@ -2,10 +2,12 @@ import { useRouter } from "next/router";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 import CategoryModel from "../../../models/CategoryModel";
+import EventModel from "../../../models/EventModel";
 import { LatLng } from "../../../models/LocationModel";
+import EventsContext from "../../../store/EventsContext";
 import { monthNames, stripLeadingZerosDate } from "../../../utils/dateUtils";
 import Divider from "../../ui/Divider";
-import Category from "./Category";
+import Category from "../Category";
 import EventIcons from "./EventIcons";
 import Labels from "./Labels";
 
@@ -13,34 +15,29 @@ import Labels from "./Labels";
 
 interface Props {
   className?: string;
-  id: string;
-  title: string;
-  description?: string;
-  rank: number;
-  start: string;
-  end: string;
-  isPrivate: boolean;
-  location: LatLng;
-  category: CategoryModel;
-  labels: string[];
+  event: EventModel;
 }
 
-const Event: React.FC<Props> = ({
-  className,
-  id,
-  title,
-  description,
-  rank,
-  start,
-  end,
-  isPrivate,
-  location,
-  category,
-  labels,
-}) => {
+const Event: React.FC<Props> = ({ className, event }) => {
   const router = useRouter();
 
-  const EventClickedHandler = (e: React.MouseEvent<HTMLDivElement>) => {
+  const {
+    id,
+    title,
+    description,
+    local_rank: rank,
+    start,
+    end,
+    private: isPrivate,
+    location,
+    category,
+    labels,
+  } = event;
+
+  const { setSelectedEvent } = React.useContext(EventsContext)!;
+
+  const eventClickedHandler = (e: React.MouseEvent<HTMLDivElement>) => {
+    setSelectedEvent(event);
     router.push(`/event/${id}`);
   };
 
@@ -89,7 +86,7 @@ const Event: React.FC<Props> = ({
 
   return (
     <div
-      onClick={EventClickedHandler}
+      onClick={eventClickedHandler}
       className={twMerge(
         `flex flex-col h-auto md:h-full overflow-auto md:overflow-hidden opacity-60 cursor-pointer shadow-xl p-5 rounded-lg transition-all hover:opacity-100 hover:scale-105 ${className}`
       )}
@@ -97,7 +94,7 @@ const Event: React.FC<Props> = ({
       <EventIcons
         rank={rank}
         isPrivate={isPrivate}
-        location={location}
+        location={{ lat: location[1], lng: location[0] }}
         category={category}
       />
       <div className="my-3">

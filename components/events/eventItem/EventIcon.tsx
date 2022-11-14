@@ -1,6 +1,5 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
-import Tooltip from "../../ui/Tooltip";
 import ColoredWrapper from "../../ui/wrappers/ColoredWrapper";
 
 interface Props {

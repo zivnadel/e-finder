@@ -20,7 +20,7 @@ const NavItem: React.FC<Props> = ({ href, children, className }) => {
       await router.push("/");
 
       if (href === "events") {
-        animateScroll.scrollTo(910, {
+        animateScroll.scrollTo(750, {
           duration: 1000,
           delay: 0,
           smooth: true,

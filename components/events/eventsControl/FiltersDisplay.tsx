@@ -8,7 +8,7 @@ import CategoryModel from "../../../models/CategoryModel";
 import { capitalizeAndRemoveDashes } from "../../../utils/stringUtils";
 import Title from "../../ui/Title";
 import TransparentWrapper from "../../ui/wrappers/TransparentWrapper";
-import Category from "../eventItem/Category";
+import Category from "../Category";
 
 interface Props {
   categories: CategoryModel[];
