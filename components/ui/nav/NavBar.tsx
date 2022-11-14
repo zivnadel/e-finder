@@ -39,25 +39,22 @@ const NavBar: React.FC = () => {
 
   return (
     <Transition
-      /** Animate the navbar */
       show={visible}
-      unmount={false}
-      enter="transition-opacity ease-in-out duration-500"
-      enterFrom="opacity-0"
-      enterTo="opacity-100"
-      leave="transition-opacity ease-in-out duration-500"
-      leaveFrom="opacity-100"
-      leaveTo="opacity-0"
+      enter="transition duration-100 ease-out"
+      enterFrom="transform -translate-y-full opacity-0"
+      enterTo="transform translate-y-0 opacity-100"
+      leave="transition duration-100 ease-in"
+      leaveFrom="transform translate-y-0 opacity-100"
+      leaveTo="transform -translate-y-full opacity-0"
+      className={`z-20 flex transition-all duration-500 w-full fixed items-center justify-center gap-4 md:gap-8 h-20 md:h-[6.5rem] bg-white/80`}
     >
-      <div className="z-20 w-full fixed flex items-center justify-center gap-4 md:gap-8 h-20 md:h-[6.5rem] bg-white/80">
-        <NavItem href="events" className="text-primary">
-          Events
-        </NavItem>
-        <Logo />
-        <NavItem href="" className="text-secondary">
-          About
-        </NavItem>
-      </div>
+      <NavItem href="events" className="text-primary">
+        Events
+      </NavItem>
+      <Logo />
+      <NavItem href="" className="text-secondary">
+        About
+      </NavItem>
     </Transition>
   );
 };

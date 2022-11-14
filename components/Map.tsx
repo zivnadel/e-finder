@@ -15,29 +15,12 @@ const Map: React.FC<Props> = ({ className, latLng }) => {
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY!,
   });
 
-  const [map, setMap] = React.useState<google.maps.Map | null>(null);
-
-  const onLoad = React.useCallback(
-    (map: google.maps.Map) => {
-      const bounds = new window.google.maps.LatLngBounds(latLng);
-      map.fitBounds(bounds);
-      setMap(map);
-    },
-    [latLng]
-  );
-
-  const onUnmount = React.useCallback((map: google.maps.Map) => {
-    setMap(null);
-  }, []);
-
   return isLoaded ? (
     <div className={className}>
       <GoogleMap
-        onLoad={onLoad}
-        onUnmount={onUnmount}
         mapContainerStyle={{ width: "100%", height: "100%" }}
         center={latLng}
-        zoom={17}
+        zoom={14}
       >
         <Marker position={latLng} />
       </GoogleMap>
