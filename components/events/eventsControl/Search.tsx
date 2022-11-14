@@ -6,7 +6,7 @@ import { BsFillCalendarFill } from "react-icons/bs";
 import EventsContext from "../../../store/EventsContext";
 import SquareButton from "../../ui/buttons/SquareButton";
 import Tooltip from "../../ui/Tooltip";
-import useGeocode from "../../../hooks/useGeocode";
+import useGoogleMaps from "../../../hooks/useGoogleMaps";
 import SwitchSearchButton from "./SwitchSearchButton";
 
 // a search bar component
@@ -15,7 +15,7 @@ const Search: React.FC = () => {
   const { query, setQuery, location, setPage } =
     React.useContext(EventsContext)!;
 
-  const { geocodeByAddress } = useGeocode();
+  const { geocodeByAddress } = useGoogleMaps();
 
   const [search, setSearch] = React.useState(query);
 

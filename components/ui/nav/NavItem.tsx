@@ -2,6 +2,7 @@ import { Link, animateScroll } from "react-scroll";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 import { useRouter } from "next/router";
+import FetchContext from "../../../store/FetchContext";
 
 interface Props {
   href: string;
@@ -14,12 +15,16 @@ interface Props {
 const NavItem: React.FC<Props> = ({ href, children, className }) => {
   const router = useRouter();
 
+  const { setError } = React.useContext(FetchContext)!;
+
   // if not in home page, move to home page and scroll
   const navItemClickedHandler = async () => {
     if (router.pathname !== "/") {
       await router.push("/");
 
       if (href === "events") {
+        setError("");
+
         animateScroll.scrollTo(750, {
           duration: 1000,
           delay: 0,

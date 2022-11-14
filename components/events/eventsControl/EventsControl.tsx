@@ -3,7 +3,7 @@ import React from "react";
 
 import { BiCheck } from "react-icons/bi";
 import { IoClose } from "react-icons/io5";
-import useGeocode from "../../../hooks/useGeocode";
+import useGoogleMaps from "../../../hooks/useGoogleMaps";
 
 import CategoryModel from "../../../models/CategoryModel";
 import EventsContext from "../../../store/EventsContext";
@@ -33,7 +33,7 @@ const EventsControl: React.FC = () => {
     setPage,
   } = React.useContext(EventsContext)!;
 
-  const { getCurrentPosition } = useGeocode();
+  const { getCurrentPosition } = useGoogleMaps();
   const [selectedCategories, setSelectedCategories] =
     React.useState<CategoryModel[]>(categories);
   const [selectedSort, setSelectedSort] = React.useState<string>(sort);

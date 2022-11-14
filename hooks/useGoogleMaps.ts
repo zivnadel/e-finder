@@ -8,7 +8,7 @@ This react hook wraps the functionality to get the location of the user
 using the Google Geocode API
 */
 
-const useGeocode = () => {
+const useGoogleMaps = () => {
   const { sendRequest, setError, setIsLoading } =
     React.useContext(FetchContext)!;
 
@@ -132,4 +132,4 @@ const useGeocode = () => {
   return { geocodeByAddress, geocodeByLatLng, getCurrentPosition };
 };
 
-export default useGeocode;
+export default useGoogleMaps;

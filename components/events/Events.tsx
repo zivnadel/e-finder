@@ -1,6 +1,6 @@
 import React from "react";
 import { Element } from "react-scroll";
-import useGeocode from "../../hooks/useGeocode";
+import useGoogleMaps from "../../hooks/useGoogleMaps";
 
 import EventsContext from "../../store/EventsContext";
 import FetchContext from "../../store/FetchContext";
@@ -19,7 +19,7 @@ const Events: React.FC = () => {
   const { location, events } = React.useContext(EventsContext)!;
   const { isLoading, error } = React.useContext(FetchContext)!;
 
-  const { getCurrentPosition } = useGeocode();
+  const { getCurrentPosition } = useGoogleMaps();
 
   React.useEffect(() => {
     if (!events) {

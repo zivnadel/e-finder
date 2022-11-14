@@ -3,3 +3,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .mt-nav {
+    @apply mt-20 md:mt-[6.5rem];
+  }
+}

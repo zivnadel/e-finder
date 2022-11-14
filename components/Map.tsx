@@ -3,14 +3,13 @@ import React from "react";
 import { LatLng } from "../models/LocationModel";
 
 interface Props {
-  width: string;
-  height: string;
+  className?: string;
   latLng: LatLng;
 }
 
 // A Google map component from the react-google-maps library
 
-const Map: React.FC<Props> = ({ width, height, latLng }) => {
+const Map: React.FC<Props> = ({ className, latLng }) => {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY!,
@@ -30,10 +29,19 @@ const Map: React.FC<Props> = ({ width, height, latLng }) => {
   const onUnmount = React.useCallback((map: google.maps.Map) => {
     setMap(null);
   }, []);
+
   return isLoaded ? (
-    <GoogleMap mapContainerStyle={{ width, height }} center={latLng} zoom={17}>
-      <Marker position={latLng} />
-    </GoogleMap>
+    <div className={className}>
+      <GoogleMap
+        onLoad={onLoad}
+        onUnmount={onUnmount}
+        mapContainerStyle={{ width: "100%", height: "100%" }}
+        center={latLng}
+        zoom={17}
+      >
+        <Marker position={latLng} />
+      </GoogleMap>
+    </div>
   ) : (
     <></>
   );
