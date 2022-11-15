@@ -3,6 +3,7 @@ import { Transition } from "@headlessui/react";
 
 import Logo from "./Logo";
 import NavItem from "./NavItem";
+import { useRouter } from "next/router";
 
 // the navigation bar of the app
 // visible on every page and stays at the top
@@ -10,6 +11,8 @@ import NavItem from "./NavItem";
 // on the sides
 
 const NavBar: React.FC = () => {
+  const router = useRouter();
+
   const [visible, setVisible] = React.useState(true);
   const [scrollPosition, setScrollPosition] = React.useState(0);
 
@@ -48,12 +51,18 @@ const NavBar: React.FC = () => {
       leaveTo="transform -translate-y-full opacity-0"
       className={`z-20 flex transition-all duration-500 w-full fixed items-center justify-center gap-4 md:gap-8 h-20 md:h-[6.5rem] bg-white/80`}
     >
-      <NavItem href="events" className="text-primary">
-        Events
+      <NavItem
+        href={router.pathname === "/" ? "events" : "details"}
+        className="text-primary"
+      >
+        {router.pathname === "/" ? "Events" : "Details"}
       </NavItem>
       <Logo />
-      <NavItem href="" className="text-secondary">
-        About
+      <NavItem
+        href={router.pathname === "/" ? "" : "map"}
+        className="text-secondary"
+      >
+        {router.pathname === "/" ? "About" : "Map"}
       </NavItem>
     </Transition>
   );

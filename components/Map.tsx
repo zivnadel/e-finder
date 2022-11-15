@@ -1,5 +1,6 @@
-import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import React from "react";
+import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
+import { Element } from "react-scroll";
 import { LatLng } from "../models/LocationModel";
 
 interface Props {
@@ -16,7 +17,7 @@ const Map: React.FC<Props> = ({ className, latLng }) => {
   });
 
   return isLoaded ? (
-    <div className={className}>
+    <Element name="map" className={className}>
       <GoogleMap
         mapContainerStyle={{ width: "100%", height: "100%" }}
         center={latLng}
@@ -24,7 +25,7 @@ const Map: React.FC<Props> = ({ className, latLng }) => {
       >
         <Marker position={latLng} />
       </GoogleMap>
-    </div>
+    </Element>
   ) : (
     <></>
   );

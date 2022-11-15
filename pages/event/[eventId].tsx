@@ -7,6 +7,9 @@ import FetchContext from "../../store/FetchContext";
 import EventsResponseModel from "../../models/EventsResponseModel";
 import Map from "../../components/Map";
 import ErrorSection from "../../components/ui/ErrorSection";
+import LoadingSpinner from "../../components/ui/loading/LoadingSpinner";
+import Showcase from "../../components/events/innerPage/Showcase";
+import Details from "../../components/events/innerPage/Details";
 
 const Event: NextPage = () => {
   const router = useRouter();
@@ -58,6 +61,8 @@ const Event: NextPage = () => {
         return "bg-health-warnings";
       case "protests":
         return "bg-protests";
+      default:
+        return "";
     }
   };
 
@@ -73,37 +78,30 @@ const Event: NextPage = () => {
         }
       });
     }
-  }, [eventId]);
+  }, [eventId, selectedEvent]);
 
   return error ? (
     <ErrorSection full error={error} />
   ) : isLoading ? (
-    <div>LOADING</div>
+    <LoadingSpinner asOverlay />
   ) : (
-    <div>
-      <div
-        className={`w-full relative min-h-[50vh] backdrop-blur-md ${generateBackgroundClass()} bg-no-repeat bg-center bg-cover shadow-md text-white flex flex-col items-center justify-center p-10 gap-3`}
-      >
-        {/* Image Backdrop */}
-        <div className="w-full h-full absolute top-0 left-0 bg-black bg-opacity-50"></div>
-        <h1 className="mt-nav font-bold text-4xl md:text-5xl text-center drop-shadow-md">
-          {selectedEvent?.title}
-        </h1>
-        <p className="text-center text-lg md:text-xl max-h-[20vh] overflow-auto font-medium drop-shadow-md">
-          {selectedEvent?.description}
-        </p>
-      </div>
-      <div className="w-full h-full md:h-[50vh] flex flex-col md:flex-row">
-        <div className="w-full h-64 md:h-full"></div>
+    selectedEvent && (
+      <div className="flex flex-col gap-3">
+        <Showcase
+          title={selectedEvent.title}
+          description={selectedEvent.description}
+          className={generateBackgroundClass()}
+        />
+        <Details event={selectedEvent} />
         <Map
-          className="w-full h-96 md:h-full"
+          className="h-[50vh]"
           latLng={{
             lat: selectedEvent?.location[1]!,
             lng: selectedEvent?.location[0]!,
           }}
         />
       </div>
-    </div>
+    )
   );
 };
 

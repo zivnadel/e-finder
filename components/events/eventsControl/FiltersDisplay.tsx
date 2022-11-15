@@ -5,7 +5,7 @@ import { BiSortUp, BiSortDown } from "react-icons/bi";
 import { AiOutlinePlus } from "react-icons/ai";
 
 import CategoryModel from "../../../models/CategoryModel";
-import { capitalizeAndRemoveDashes } from "../../../utils/stringUtils";
+import { capitalizeAndRemoveDashes } from "../../../utils/generalUtils";
 import Title from "../../ui/Title";
 import TransparentWrapper from "../../ui/wrappers/TransparentWrapper";
 import Category from "../Category";

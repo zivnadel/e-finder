@@ -1,6 +1,7 @@
 import React from "react";
 
 import { BsChevronDown } from "react-icons/bs";
+import { Link } from "react-scroll";
 
 // the landing view of the app
 
@@ -14,7 +15,9 @@ const Showcase: React.FC = () => {
         Explore exciting and thrilling events around you
       </h2>
       <p className="mb-5 opacity-80">Scroll down to discover</p>
-      <BsChevronDown className="text-4xl animate-bounce" />
+      <Link smooth to="events">
+        <BsChevronDown className="cursor-pointer text-4xl animate-bounce" />
+      </Link>
     </div>
   );
 };

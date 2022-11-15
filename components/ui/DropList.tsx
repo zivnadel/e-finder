@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 
 import { BsChevronExpand } from "react-icons/bs";
 import { Listbox, Transition } from "@headlessui/react";
-import { capitalizeAndRemoveDashes } from "../../utils/stringUtils";
+import { capitalizeAndRemoveDashes } from "../../utils/generalUtils";
 
 interface Props {
   options: { name: string | number; color: string; bgColor: string }[];

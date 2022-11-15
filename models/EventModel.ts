@@ -11,11 +11,13 @@ export default interface EventModel {
   labels: string[];
   rank: number;
   local_rank: number;
+  aviation_rank?: number;
   phq_attendance: number;
   entities: any[];
   duration: number;
   start: string;
   end: string;
+  predicted_end?: string;
   updated: string;
   first_seen: string;
   timezone: string;
