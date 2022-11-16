@@ -8,6 +8,9 @@ interface Props {
   className: string;
 }
 
+// A chart component displaying the world map with the selected country
+// used to display the selected country of an event without an exact location
+
 const WorldChart: React.FC<Props> = ({ country, className }) => {
   const data = [["Country"], [country]];
 

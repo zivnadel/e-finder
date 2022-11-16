@@ -4,9 +4,11 @@ interface Props {
   labels: string[];
 }
 
+// a container component for the labels of the event displayed in the inner event page
+
 const Labels: React.FC<Props> = ({ labels }) => {
   return (
-    <div className="flex items-center gap-3 mx-5 mt-8 mb-3">
+    <div className="flex items-center justify-center flex-col md:flex-row gap-3 mx-5 mt-8 mb-3">
       {labels.map((label) => (
         <div
           key={label}

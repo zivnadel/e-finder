@@ -8,6 +8,8 @@ interface Props {
   searchEvents: boolean;
 }
 
+// a component wrapping a button to switch between searching for events
+
 const SwitchSearchButton: React.FC<Props> = ({ onClick, searchEvents }) => {
   return (
     <div

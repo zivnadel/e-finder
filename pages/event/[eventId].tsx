@@ -12,6 +12,15 @@ import Showcase from "../../components/events/innerPage/Showcase";
 import Details from "../../components/events/innerPage/Details";
 import WorldChart from "../../components/WorldChart";
 import useGoogleMaps from "../../hooks/useGoogleMaps";
+import { getCategoryDetails } from "../../components/events/Category";
+
+/**
+ * This is the inner event page, it shows the details of the event.
+ * It is accessed by clicking on an event in the events grid.
+ * It has a showcase section displaying on the entire screen, the title and the description of the event.
+ * It has a details section displaying the details of the event.
+ * It has a map section displaying the location of the event.
+ */
 
 const Event: NextPage = () => {
   const router = useRouter();
@@ -101,16 +110,7 @@ const Event: NextPage = () => {
         setAddress(address);
       }
     }
-  }, [
-    address,
-    eventId,
-    formattedAddressByLatLng,
-    router.query.eventId,
-    selectedEvent,
-    sendRequest,
-    setError,
-    setSelectedEvent,
-  ]);
+  }, [selectedEvent, address, eventId]);
 
   React.useEffect(() => {
     fetchRequiredData();
@@ -126,7 +126,7 @@ const Event: NextPage = () => {
         <Showcase
           title={selectedEvent.title}
           description={selectedEvent.description}
-          className={generateBackgroundClass()}
+          className={getCategoryDetails(selectedEvent.category).image}
         />
         <Details event={selectedEvent} address={address} />
         {![

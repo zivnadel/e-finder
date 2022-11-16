@@ -27,21 +27,6 @@ const Events: React.FC = () => {
     }
   }, [events, getCurrentPosition]);
 
-  // a function to calculate the shifting in the grid for the last elements
-  const calcShift = (index: number) => {
-    const len = events!.results.length;
-
-    if (index % 3 === 0 && index === len - 1) {
-      return "lg:col-start-2";
-    }
-
-    if (index % 3 === 1 && index === len - 1) {
-      return "lg:col-start-3";
-    }
-
-    return undefined;
-  };
-
   // display the events in a grid layout
   return (
     <Element name="events">
@@ -60,11 +45,11 @@ const Events: React.FC = () => {
           <EventsTitle location={location} />
           <EventsControl />
           {events.results.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 m-5 items-center">
+            <div className="flex flex-wrap gap-5 m-5 items-stretch justify-center">
               {events.results.map((event, index) => (
                 <EventItem
                   key={event.id}
-                  className={calcShift(index)}
+                  className="basis-full md:basis-[47%] lg:basis-[30%] grow-0"
                   event={event}
                 />
               ))}

@@ -23,6 +23,8 @@ interface Props {
   address: string;
 }
 
+// a container for all the possible detail boxes
+
 const Details: React.FC<Props> = ({ event, address }) => {
   React.useEffect(() => {
     console.log(event);
@@ -52,7 +54,7 @@ const Details: React.FC<Props> = ({ event, address }) => {
 
   return (
     <Element name="details">
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 mx-5 gap-5">
+      <div className="flex flex-wrap items-stretch justify-center mx-5 gap-5">
         <DetailBox
           title="Category"
           content={capitalizeAndRemoveDashes(event.category)}
@@ -163,7 +165,7 @@ const Details: React.FC<Props> = ({ event, address }) => {
         />
       </div>
       {event.labels ? <Labels labels={event.labels} /> : <></>}
-      <p className="pl-6 my-1 text-gray-400 font-medium text-lg">{`Last updated on ${updatedDate} at ${updatedTime}`}</p>
+      <p className="pl-6 mt-4 mb-1 text-gray-400 font-medium text-base">{`Last updated on ${updatedDate} at ${updatedTime}`}</p>
     </Element>
   );
 };

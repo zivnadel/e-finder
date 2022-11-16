@@ -55,7 +55,7 @@ const NavBar: React.FC = () => {
         href={router.pathname === "/" ? "events" : "details"}
         className="text-primary"
       >
-        {router.pathname === "/" ? "Events" : "Details"}
+        {router.pathname === "/" ? "Events" : "Info"}
       </NavItem>
       <Logo />
       <NavItem

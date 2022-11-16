@@ -8,8 +8,8 @@ import EventIcon from "./EventIcon";
 import EventsContext from "../../../store/EventsContext";
 
 interface Props {
-  rank: number;
-  isPrivate: boolean;
+  rank?: number;
+  isPrivate?: boolean;
   location: LatLng;
   category: string;
 }
@@ -35,7 +35,7 @@ const EventIcons: React.FC<Props> = ({
 
   return (
     <div className="flex items-center justify-center m-4 gap-4">
-      {rank > 0 && (
+      {rank !== undefined && rank > 0 ? (
         <EventIcon
           className={`bg-gradient-to-r ${
             rank >= 80
@@ -50,20 +50,26 @@ const EventIcons: React.FC<Props> = ({
           text={(rank / 10).toString()}
           icon={<AiFillStar />}
         />
+      ) : (
+        <></>
       )}
-      <EventIcon
-        className={`bg-gradient-to-r ${
-          isPrivate ? "from-red-600 to-red-800" : "from-blue-400 to-blue-800"
-        }`}
-        tooltip={isPrivate ? "Private Event" : "Public Event"}
-        icon={
-          isPrivate ? (
-            <AiFillLock className="text-4xl" />
-          ) : (
-            <HiUserGroup className="text-4xl" />
-          )
-        }
-      />
+      {isPrivate !== undefined ? (
+        <EventIcon
+          className={`bg-gradient-to-r ${
+            isPrivate ? "from-red-600 to-red-800" : "from-blue-400 to-blue-800"
+          }`}
+          tooltip={isPrivate ? "Private Event" : "Public Event"}
+          icon={
+            isPrivate ? (
+              <AiFillLock className="text-4xl" />
+            ) : (
+              <HiUserGroup className="text-4xl" />
+            )
+          }
+        />
+      ) : (
+        <></>
+      )}
       {![
         "public-holidays",
         "school-holidays",
@@ -71,7 +77,7 @@ const EventIcons: React.FC<Props> = ({
         "politics",
         "daylight-savings",
         "academic",
-      ].includes(category) && (
+      ].includes(category) ? (
         <EventIcon
           className="text-md text-center bg-gradient-to-r from-pink-300 to-purple-500"
           tooltip="Distance (km) from you to the location of the event"
@@ -82,6 +88,8 @@ const EventIcons: React.FC<Props> = ({
           }km`}
           icon={<GiPathDistance />}
         />
+      ) : (
+        <></>
       )}
     </div>
   );

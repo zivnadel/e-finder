@@ -8,6 +8,8 @@ interface Props {
   className: string;
 }
 
+// showcase ("landing section") component for the inner event page, containing the title and description of the event
+
 const Showcase: React.FC<Props> = ({ title, description, className }) => {
   return (
     <div
