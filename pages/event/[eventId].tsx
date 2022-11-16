@@ -10,6 +10,8 @@ import ErrorSection from "../../components/ui/ErrorSection";
 import LoadingSpinner from "../../components/ui/loading/LoadingSpinner";
 import Showcase from "../../components/events/innerPage/Showcase";
 import Details from "../../components/events/innerPage/Details";
+import WorldChart from "../../components/WorldChart";
+import useGoogleMaps from "../../hooks/useGoogleMaps";
 
 const Event: NextPage = () => {
   const router = useRouter();
@@ -20,6 +22,10 @@ const Event: NextPage = () => {
     React.useContext(FetchContext)!;
 
   const { selectedEvent, setSelectedEvent } = React.useContext(EventsContext)!;
+
+  const [address, setAddress] = React.useState("");
+
+  const { formattedAddressByLatLng } = useGoogleMaps();
 
   const generateBackgroundClass = () => {
     switch (selectedEvent?.category) {
@@ -66,19 +72,49 @@ const Event: NextPage = () => {
     }
   };
 
-  React.useEffect(() => {
+  const fetchRequiredData = React.useCallback(async () => {
     if (!selectedEvent && eventId) {
-      sendRequest<EventsResponseModel>(
+      const response = await sendRequest<EventsResponseModel>(
         `/api/events?id=${router.query.eventId}`
-      ).then((response) => {
-        if (response && response.results.length > 0) {
-          setSelectedEvent(response.results[0]);
-        } else {
-          setError("Invalid ID!");
-        }
-      });
+      );
+      if (response?.results[0]) {
+        setSelectedEvent(response.results[0]);
+      } else {
+        setError("Invalid ID!");
+        return;
+      }
     }
-  }, [eventId, selectedEvent]);
+
+    if (selectedEvent && !address) {
+      const entity = selectedEvent.entities.find(
+        (entity) => entity.type === "venue" || entity.type === "airport"
+      );
+
+      if (entity) {
+        setAddress(entity.formatted_address);
+      } else {
+        const address = await formattedAddressByLatLng(
+          selectedEvent.location[1],
+          selectedEvent.location[0]
+        );
+        console.log(address);
+        setAddress(address);
+      }
+    }
+  }, [
+    address,
+    eventId,
+    formattedAddressByLatLng,
+    router.query.eventId,
+    selectedEvent,
+    sendRequest,
+    setError,
+    setSelectedEvent,
+  ]);
+
+  React.useEffect(() => {
+    fetchRequiredData();
+  }, [fetchRequiredData]);
 
   return error ? (
     <ErrorSection full error={error} />
@@ -92,14 +128,29 @@ const Event: NextPage = () => {
           description={selectedEvent.description}
           className={generateBackgroundClass()}
         />
-        <Details event={selectedEvent} />
-        <Map
-          className="h-[50vh]"
-          latLng={{
-            lat: selectedEvent?.location[1]!,
-            lng: selectedEvent?.location[0]!,
-          }}
-        />
+        <Details event={selectedEvent} address={address} />
+        {![
+          "public-holidays",
+          "school-holidays",
+          "observances",
+          "politics",
+          "daylight-savings",
+          "academic",
+        ].includes(selectedEvent.category) ? (
+          <Map
+            className="h-[50vh]"
+            latLng={{
+              lat: selectedEvent?.location[1]!,
+              lng: selectedEvent?.location[0]!,
+            }}
+            markerLabel={address}
+          />
+        ) : (
+          <WorldChart
+            country={selectedEvent.country}
+            className="h-[50vh] w-full"
+          />
+        )}
       </div>
     )
   );

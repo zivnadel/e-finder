@@ -12,7 +12,7 @@ const Title: React.FC<Props> = ({ text, className }) => {
   return (
     <div
       className={twMerge(
-        `text-center mt-5 mx-3 md:mx-0 p-3 bg-gradient-to-r from-primary to-secondary rounded-3xl font-bold text-white text-2xl ${className}`
+        `text-center mt-5 mx-3 md:mx-0 p-3 bg-gradient-to-r from-primary to-secondary rounded-3xl font-bold shadow-md text-white text-2xl ${className}`
       )}
     >
       <h1>{text}</h1>

@@ -6,11 +6,12 @@ import { LatLng } from "../models/LocationModel";
 interface Props {
   className?: string;
   latLng: LatLng;
+  markerLabel: string;
 }
 
 // A Google map component from the react-google-maps library
 
-const Map: React.FC<Props> = ({ className, latLng }) => {
+const Map: React.FC<Props> = ({ className, latLng, markerLabel }) => {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY!,

@@ -1,4 +1,5 @@
 import CategoryModel from "./CategoryModel";
+import Entity from "./Entity";
 
 // a type representing the event as it is returned from the API
 
@@ -8,18 +9,18 @@ export default interface EventModel {
   title: string;
   description: string;
   category: CategoryModel;
-  labels: string[];
+  labels?: string[];
   rank: number;
-  local_rank: number;
+  local_rank?: number;
   aviation_rank?: number;
-  phq_attendance: number;
-  entities: any[];
+  phq_attendance?: number;
+  entities: Entity[];
   duration: number;
   start: string;
   end: string;
   predicted_end?: string;
-  updated: string;
-  first_seen: string;
+  updated?: string;
+  first_seen?: string;
   timezone: string;
   location: [number, number];
   geo: {
@@ -29,10 +30,10 @@ export default interface EventModel {
     };
     placekey: string;
   };
-  scope: string;
+  scope?: string;
   country: string;
   place_hierarchies: string[][];
   state: string;
-  brand_safe: boolean;
-  private: boolean;
+  brand_safe?: boolean;
+  private?: boolean;
 }

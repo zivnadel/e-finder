@@ -53,6 +53,23 @@ const useGoogleMaps = () => {
     [sendRequest, setError, setIsLoading, setLocation]
   );
 
+  const formattedAddressByLatLng = React.useCallback(
+    async (lat: number, lng: number) => {
+      const locationData = await sendRequest<any>(
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`
+      );
+
+      if (!locationData || locationData.status === "ZERO_RESULTS") {
+        // if no results, inform the user
+        setError("No address found for this location.");
+        return;
+      }
+
+      return locationData.results[0].formatted_address;
+    },
+    [sendRequest, setError]
+  );
+
   const geocodeByAddress = React.useCallback(
     async (address: string) => {
       const locationData = await sendRequest<any>(
@@ -129,7 +146,12 @@ const useGoogleMaps = () => {
     );
   }, [handleCurrentPosition, handleGeolocationError, setIsLoading]);
 
-  return { geocodeByAddress, geocodeByLatLng, getCurrentPosition };
+  return {
+    geocodeByAddress,
+    geocodeByLatLng,
+    formattedAddressByLatLng,
+    getCurrentPosition,
+  };
 };
 
 export default useGoogleMaps;
