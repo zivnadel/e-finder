@@ -13,7 +13,7 @@ interface Props {
 const Showcase: React.FC<Props> = ({ title, description, className }) => {
   return (
     <div
-      className={`w-full relative min-h-screen backdrop-blur-md ${className} bg-no-repeat bg-center bg-cover shadow-md text-white flex flex-col items-center justify-center p-10 gap-3 bg-size`}
+      className={`w-full relative min-h-screen backdrop-blur-md ${className} bg-no-repeat bg-center bg-cover shadow-md text-white flex flex-col items-center justify-center p-10 gap-3 bg-size bg-gradient-to-r`}
     >
       {/* Image Backdrop */}
       <div className="w-full h-full absolute top-0 left-0 bg-black bg-opacity-50"></div>

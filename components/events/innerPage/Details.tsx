@@ -26,10 +26,6 @@ interface Props {
 // a container for all the possible detail boxes
 
 const Details: React.FC<Props> = ({ event, address }) => {
-  React.useEffect(() => {
-    console.log(event);
-  }, [event]);
-
   const { icon, description } = getCategoryDetails(event.category);
 
   const entity = event.entities.find(

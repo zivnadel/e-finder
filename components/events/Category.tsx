@@ -175,10 +175,6 @@ export const getCategoryDetails = (category: string) => {
 const Category: React.FC<Props> = ({ category }) => {
   const { icon, background } = getCategoryDetails(category);
 
-  React.useEffect(() => {
-    if (category === "observances") console.log(background);
-  }, [background, category]);
-
   // name transformation
   let categoryName: string | string[] = category.split("-");
   categoryName = categoryName.map((word) => {

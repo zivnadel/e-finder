@@ -13,6 +13,7 @@ import Details from "../../components/events/innerPage/Details";
 import WorldChart from "../../components/WorldChart";
 import useGoogleMaps from "../../hooks/useGoogleMaps";
 import { getCategoryDetails } from "../../components/events/Category";
+import MapButtons from "../../components/events/innerPage/MapButtons";
 
 /**
  * This is the inner event page, it shows the details of the event.
@@ -27,6 +28,8 @@ const Event: NextPage = () => {
 
   const { eventId } = router.query;
 
+  const { location } = React.useContext(EventsContext)!;
+
   const { error, setError, isLoading, sendRequest } =
     React.useContext(FetchContext)!;
 
@@ -34,52 +37,10 @@ const Event: NextPage = () => {
 
   const [address, setAddress] = React.useState("");
 
-  const { formattedAddressByLatLng } = useGoogleMaps();
+  const [showRoute, setShowRoute] = React.useState(false);
+  const [travelMode, setTravelMode] = React.useState("DRIVING");
 
-  const generateBackgroundClass = () => {
-    switch (selectedEvent?.category) {
-      case "sports":
-        return "bg-sports";
-      case "academic":
-        return "bg-academic";
-      case "conferences":
-        return "bg-conferences";
-      case "community":
-        return "bg-community";
-      case "concerts":
-        return "bg-concerts";
-      case "performing-arts":
-        return "bg-performing-arts";
-      case "expos":
-        return "bg-expos";
-      case "festivals":
-        return "bg-festivals";
-      case "daylight-savings":
-        return "bg-daylight-savings";
-      case "public-holidays":
-        return "bg-public-holidays";
-      case "school-holidays":
-        return "bg-school-holidays";
-      case "observances":
-        return "bg-observances";
-      case "politics":
-        return "bg-politics";
-      case "severe-weather":
-        return "bg-severe-weather";
-      case "airport-delays":
-        return "bg-airport-delays";
-      case "disasters":
-        return "bg-disasters";
-      case "terror-attacks":
-        return "bg-terror-attacks";
-      case "health-warnings":
-        return "bg-health-warnings";
-      case "protests":
-        return "bg-protests";
-      default:
-        return "";
-    }
-  };
+  const { formattedAddressByLatLng } = useGoogleMaps();
 
   const fetchRequiredData = React.useCallback(async () => {
     if (!selectedEvent && eventId) {
@@ -106,7 +67,6 @@ const Event: NextPage = () => {
           selectedEvent.location[1],
           selectedEvent.location[0]
         );
-        console.log(address);
         setAddress(address);
       }
     }
@@ -137,18 +97,28 @@ const Event: NextPage = () => {
           "daylight-savings",
           "academic",
         ].includes(selectedEvent.category) ? (
-          <Map
-            className="h-[50vh]"
-            latLng={{
-              lat: selectedEvent?.location[1]!,
-              lng: selectedEvent?.location[0]!,
-            }}
-            markerLabel={address}
-          />
+          <>
+            <Map
+              className="h-[60vh]"
+              latLng={{
+                lat: selectedEvent?.location[1]!,
+                lng: selectedEvent?.location[0]!,
+              }}
+              showRoute={showRoute}
+              setShowRoute={setShowRoute}
+              travelMode={travelMode}
+            />
+            {location && (
+              <MapButtons
+                setShowRoute={setShowRoute}
+                setTravelMode={setTravelMode}
+              />
+            )}
+          </>
         ) : (
           <WorldChart
             country={selectedEvent.country}
-            className="h-[50vh] w-full"
+            className="h-[60vh] w-full"
           />
         )}
       </div>
