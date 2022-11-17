@@ -41,12 +41,12 @@ const Events: React.FC = () => {
           <LoadingEvents />
         </>
       ) : (
-        <div className="bg-white flex flex-col w-full items-center justify-center">
+        <div className="bg-white flex flex-col overflow-auto items-center justify-center">
           <EventsTitle location={location} />
           <EventsControl />
           {events.results.length > 0 ? (
             <div className="flex flex-wrap gap-5 m-5 items-stretch justify-center">
-              {events.results.map((event, index) => (
+              {events.results.map((event) => (
                 <EventItem
                   key={event.id}
                   className="basis-full md:basis-[47%] lg:basis-[30%] grow-0"

@@ -51,34 +51,36 @@ const Map: React.FC<Props> = ({ className, latLng, showButtons }) => {
   return loadError ? (
     <ErrorSection error="Map Loading Failed!" />
   ) : isLoaded ? (
-    <Element name="map" className={className}>
-      <GoogleMap
-        mapContainerStyle={{ width: "100%", height: "100%" }}
-        center={latLng}
-        zoom={14}
-      >
-        {!showRoute && <Marker position={latLng} />}
-        {showRoute && !directionsResponse && location && (
-          <DirectionsService
-            options={{
-              destination: latLng,
-              origin: { lat: location?.lat!, lng: location?.lng! },
-              travelMode: travelMode as any,
-            }}
-            callback={directionsCallback}
-          />
-        )}
-        {showRoute && directionsResponse && (
-          <DirectionsRenderer
-            options={{
-              directions: directionsResponse,
-            }}
-          />
-        )}
-      </GoogleMap>
+    <Element name="map" className="relative">
       {showButtons && (
         <MapButtons setShowRoute={setShowRoute} setTravelMode={setTravelMode} />
       )}
+      <div className={className}>
+        <GoogleMap
+          mapContainerStyle={{ width: "100%", height: "100%" }}
+          center={latLng}
+          zoom={14}
+        >
+          {!showRoute && <Marker position={latLng} />}
+          {showRoute && !directionsResponse && location && (
+            <DirectionsService
+              options={{
+                destination: latLng,
+                origin: { lat: location?.lat!, lng: location?.lng! },
+                travelMode: travelMode as any,
+              }}
+              callback={directionsCallback}
+            />
+          )}
+          {showRoute && directionsResponse && (
+            <DirectionsRenderer
+              options={{
+                directions: directionsResponse,
+              }}
+            />
+          )}
+        </GoogleMap>
+      </div>
     </Element>
   ) : (
     <></>

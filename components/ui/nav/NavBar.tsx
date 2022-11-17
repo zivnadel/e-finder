@@ -43,6 +43,7 @@ const NavBar: React.FC = () => {
   return (
     <Transition
       show={visible}
+      as="nav"
       enter="transition duration-100 ease-out"
       enterFrom="transform -translate-y-full opacity-0"
       enterTo="transform translate-y-0 opacity-100"
@@ -59,7 +60,7 @@ const NavBar: React.FC = () => {
       </NavItem>
       <Logo />
       <NavItem
-        href={router.pathname === "/" ? "" : "map"}
+        href={router.pathname === "/" ? "about" : "map"}
         className="text-secondary"
       >
         {router.pathname === "/" ? "About" : "Map"}

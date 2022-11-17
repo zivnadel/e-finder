@@ -13,6 +13,7 @@ import Details from "../../components/events/innerPage/Details";
 import WorldChart from "../../components/WorldChart";
 import useGoogleMaps from "../../hooks/useGoogleMaps";
 import { getCategoryDetails } from "../../components/events/Category";
+import Head from "next/head";
 
 /**
  * This is the inner event page, it shows the details of the event.
@@ -66,48 +67,67 @@ const Event: NextPage = () => {
         setAddress(address);
       }
     }
-  }, [selectedEvent, address, eventId]);
+  }, [
+    selectedEvent,
+    eventId,
+    address,
+    sendRequest,
+    router.query.eventId,
+    setSelectedEvent,
+    setError,
+    formattedAddressByLatLng,
+  ]);
 
   React.useEffect(() => {
     fetchRequiredData();
   }, [fetchRequiredData]);
 
-  return error ? (
-    <ErrorSection full error={error} />
-  ) : isLoading ? (
-    <LoadingSpinner asOverlay />
-  ) : (
-    selectedEvent && (
-      <div className="flex flex-col gap-3">
-        <Showcase
-          title={selectedEvent.title}
-          description={selectedEvent.description}
-          className={getCategoryDetails(selectedEvent.category).image}
-        />
-        <Details event={selectedEvent} address={address} />
-        {![
-          "public-holidays",
-          "school-holidays",
-          "observances",
-          "politics",
-          "daylight-savings",
-          "academic",
-        ].includes(selectedEvent.category) ? (
-          <>
-            <Map
-              className="h-[60vh]"
-              latLng={{
-                lat: selectedEvent?.location[1]!,
-                lng: selectedEvent?.location[0]!,
-              }}
-              showButtons={!!location}
+  return (
+    <>
+      <Head>
+        <title>{selectedEvent?.title || "E-Finder"}</title>
+      </Head>
+      {error ? (
+        <ErrorSection full error={error} />
+      ) : isLoading ? (
+        <LoadingSpinner asOverlay />
+      ) : (
+        selectedEvent && (
+          <div className="flex flex-col gap-3">
+            <Showcase
+              title={selectedEvent.title}
+              description={selectedEvent.description}
+              className={getCategoryDetails(selectedEvent.category).image}
             />
-          </>
-        ) : (
-          <WorldChart country={selectedEvent.country} className="h-[60vh]" />
-        )}
-      </div>
-    )
+            <Details event={selectedEvent} address={address} />
+            {![
+              "public-holidays",
+              "school-holidays",
+              "observances",
+              "politics",
+              "daylight-savings",
+              "academic",
+            ].includes(selectedEvent.category) ? (
+              <>
+                <Map
+                  className="h-[70vh] md:h-[60vh]"
+                  latLng={{
+                    lat: selectedEvent?.location[1]!,
+                    lng: selectedEvent?.location[0]!,
+                  }}
+                  showButtons={!!location}
+                />
+              </>
+            ) : (
+              <WorldChart
+                country={selectedEvent.country}
+                className="h-[60vh]"
+              />
+            )}
+          </div>
+        )
+      )}
+    </>
   );
 };
 

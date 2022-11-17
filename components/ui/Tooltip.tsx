@@ -8,7 +8,7 @@ const Tooltip: React.FC = () => {
     <ReactTooltip
       effect="solid"
       multiline
-      className="font-semibold text-md p-2 opacity-70"
+      className="font-semibold text-md py-2 px-3 opacity-70"
     />
   );
 };

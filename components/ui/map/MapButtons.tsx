@@ -1,4 +1,6 @@
+import { Transition } from "@headlessui/react";
 import React from "react";
+import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";
 import {
   MdDirectionsBike,
@@ -18,6 +20,8 @@ interface Props {
 // on the map in the inner event page
 
 const MapButtons: React.FC<Props> = ({ setShowRoute, setTravelMode }) => {
+  const [showMenu, setShowMenu] = React.useState(false);
+
   const driveHandler = () => {
     setTravelMode("DRIVING");
     setShowRoute(true);
@@ -39,25 +43,67 @@ const MapButtons: React.FC<Props> = ({ setShowRoute, setTravelMode }) => {
     setShowRoute(false);
   };
 
+  const showDirectionsHandler = () => {
+    setShowMenu((prev) => !prev);
+  };
+
   return (
     <>
       <Tooltip />
-      <div className="flex items-center justify-center gap-3 m-3">
-        <RoundedButton dataTip="Driving Directions" onClick={driveHandler}>
-          <MdDirectionsCar className="text-3xl" />
+      <div className="absolute top-16 z-10 m-3">
+        <RoundedButton
+          className="mb-3 text-black from-white to-white"
+          dataTip="Directions"
+          onClick={showDirectionsHandler}
+        >
+          <GiHamburgerMenu className="text-3xl" />
         </RoundedButton>
-        <RoundedButton dataTip="Transit Directions" onClick={transitHandler}>
-          <MdDirectionsTransit className="text-3xl" />
-        </RoundedButton>
-        <RoundedButton dataTip="Biking Directions" onClick={bikeHandler}>
-          <MdDirectionsBike className="text-3xl" />
-        </RoundedButton>
-        <RoundedButton dataTip="Walking Directions" onClick={walkHandler}>
-          <MdDirectionsWalk className="text-3xl" />
-        </RoundedButton>
-        <RoundedButton dataTip="Clear Directions" onClick={clearHandler}>
-          <IoClose className="text-3xl" />
-        </RoundedButton>
+        <Transition
+          enter="transition ease-out duration-100"
+          enterFrom="transform opacity-0 scale-95"
+          enterTo="transform opacity-100 scale-100"
+          leave="transition ease-in duration-75"
+          leaveFrom="transform opacity-100 scale-100"
+          leaveTo="transform opacity-0 scale-95"
+          show={showMenu}
+          className="flex flex-col gap-3 items-center justify-center"
+        >
+          <RoundedButton
+            className="text-black from-white to-white"
+            dataTip="Driving Directions"
+            onClick={driveHandler}
+          >
+            <MdDirectionsCar className="text-3xl" />
+          </RoundedButton>
+          <RoundedButton
+            className="text-black from-white to-white"
+            dataTip="Transit Directions"
+            onClick={transitHandler}
+          >
+            <MdDirectionsTransit className="text-3xl" />
+          </RoundedButton>
+          <RoundedButton
+            className="text-black from-white to-white"
+            dataTip="Biking Directions"
+            onClick={bikeHandler}
+          >
+            <MdDirectionsBike className="text-3xl" />
+          </RoundedButton>
+          <RoundedButton
+            className="text-black from-white to-white"
+            dataTip="Walking Directions"
+            onClick={walkHandler}
+          >
+            <MdDirectionsWalk className="text-3xl" />
+          </RoundedButton>
+          <RoundedButton
+            className="text-black from-white to-white"
+            dataTip="Clear Directions"
+            onClick={clearHandler}
+          >
+            <IoClose className="text-3xl" />
+          </RoundedButton>
+        </Transition>
       </div>
     </>
   );

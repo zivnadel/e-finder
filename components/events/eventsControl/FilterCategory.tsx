@@ -24,7 +24,6 @@ const categories = [
     bgColor: "bg-indigo-500",
   },
   { name: "daylight-savings", color: "text-cyan-500", bgColor: "bg-cyan-500" },
-  { name: "protests", color: "text-teal-500", bgColor: "bg-teal-500" },
   { name: "health-warnings", color: "text-rose-500", bgColor: "bg-rose-500" },
   {
     name: "airport-delays",
