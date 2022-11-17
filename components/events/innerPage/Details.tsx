@@ -153,12 +153,23 @@ const Details: React.FC<Props> = ({ event, address }) => {
         ) : (
           <></>
         )}
-        <DetailBox
-          title="Address"
-          content={address}
-          description="The address of the event"
-          icon={<IoLocationSharp />}
-        />
+        {![
+          "public-holidays",
+          "school-holidays",
+          "observances",
+          "politics",
+          "daylight-savings",
+          "academic",
+        ].includes(event.category) ? (
+          <DetailBox
+            title="Address"
+            content={address}
+            description="The address of the event"
+            icon={<IoLocationSharp />}
+          />
+        ) : (
+          <></>
+        )}
       </div>
       {event.labels ? <Labels labels={event.labels} /> : <></>}
       <p className="pl-6 mt-4 mb-1 text-gray-400 font-medium text-base">{`Last updated on ${updatedDate} at ${updatedTime}`}</p>

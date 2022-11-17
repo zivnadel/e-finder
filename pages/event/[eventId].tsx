@@ -116,10 +116,7 @@ const Event: NextPage = () => {
             )}
           </>
         ) : (
-          <WorldChart
-            country={selectedEvent.country}
-            className="h-[60vh] w-full"
-          />
+          <WorldChart country={selectedEvent.country} className="h-[60vh]" />
         )}
       </div>
     )

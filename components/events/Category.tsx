@@ -153,7 +153,7 @@ export const getCategoryDetails = (category: string) => {
       background = "bg-gradient-to-r from-emerald-400 to-emerald-800";
       image = "bg-conferences";
       break;
-    case "terror-attacks":
+    case "terror":
       icon = <TerrorAttacks />;
       description = "Real-time terror attacks and security alerts.";
       background = "bg-gradient-to-r from-red-600 to-red-900";
