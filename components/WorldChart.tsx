@@ -1,6 +1,9 @@
 import React from "react";
 import { Chart } from "react-google-charts";
 import { Element } from "react-scroll";
+import ErrorSection from "./ui/ErrorSection";
+import LoadingItem from "./ui/loading/LoadingItem";
+import LoadingSpinner from "./ui/loading/LoadingSpinner";
 import Title from "./ui/Title";
 
 interface Props {
@@ -19,7 +22,18 @@ const WorldChart: React.FC<Props> = ({ country, className }) => {
       <div className="flex items-center justify-center">
         <Title text="Event Region" className="w-2/6 mb-0 md:mb-5" />
       </div>
-      <Chart chartType="GeoChart" data={data} width="100%" height="100%" />
+      <Chart
+        loader={
+          <div className="w-full h-full flex items-center justify-center">
+            <LoadingSpinner />
+          </div>
+        }
+        errorElement={<ErrorSection error="Error Loading Map!" />}
+        chartType="GeoChart"
+        data={data}
+        width="100%"
+        height="100%"
+      />
     </Element>
   );
 };

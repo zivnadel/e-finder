@@ -42,7 +42,7 @@ const MapButtons: React.FC<Props> = ({ setShowRoute, setTravelMode }) => {
   return (
     <>
       <Tooltip />
-      <div className="flex items-center justify-center gap-3 mb-3">
+      <div className="flex items-center justify-center gap-3 m-3">
         <RoundedButton dataTip="Driving Directions" onClick={driveHandler}>
           <MdDirectionsCar className="text-3xl" />
         </RoundedButton>

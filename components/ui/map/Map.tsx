@@ -7,29 +7,26 @@ import {
   useJsApiLoader,
 } from "@react-google-maps/api";
 import { Element } from "react-scroll";
-import { LatLng } from "../models/LocationModel";
-import EventsContext from "../store/EventsContext";
+import { LatLng } from "../../../models/LocationModel";
+import EventsContext from "../../../store/EventsContext";
+import ErrorSection from "../ErrorSection";
+import MapButtons from "./MapButtons";
 
 interface Props {
   className?: string;
   latLng: LatLng;
-  showRoute?: boolean;
-  setShowRoute?: React.Dispatch<React.SetStateAction<boolean>>;
-  travelMode?: string;
+  showButtons?: boolean;
 }
 
 // A Google map component from the react-google-maps library
 
-const Map: React.FC<Props> = ({
-  className,
-  latLng,
-  showRoute,
-  travelMode,
-  setShowRoute,
-}) => {
+const Map: React.FC<Props> = ({ className, latLng, showButtons }) => {
   const { location } = React.useContext(EventsContext)!;
 
-  const { isLoaded } = useJsApiLoader({
+  const [showRoute, setShowRoute] = React.useState(false);
+  const [travelMode, setTravelMode] = React.useState("DRIVING");
+
+  const { isLoaded, loadError } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY!,
   });
@@ -51,7 +48,9 @@ const Map: React.FC<Props> = ({
     setDirectionsResponse(null);
   }, [showRoute, travelMode]);
 
-  return isLoaded ? (
+  return loadError ? (
+    <ErrorSection error="Map Loading Failed!" />
+  ) : isLoaded ? (
     <Element name="map" className={className}>
       <GoogleMap
         mapContainerStyle={{ width: "100%", height: "100%" }}
@@ -77,6 +76,9 @@ const Map: React.FC<Props> = ({
           />
         )}
       </GoogleMap>
+      {showButtons && (
+        <MapButtons setShowRoute={setShowRoute} setTravelMode={setTravelMode} />
+      )}
     </Element>
   ) : (
     <></>

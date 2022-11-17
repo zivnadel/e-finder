@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import EventsContext from "../../store/EventsContext";
 import FetchContext from "../../store/FetchContext";
 import EventsResponseModel from "../../models/EventsResponseModel";
-import Map from "../../components/Map";
+import Map from "../../components/ui/map/Map";
 import ErrorSection from "../../components/ui/ErrorSection";
 import LoadingSpinner from "../../components/ui/loading/LoadingSpinner";
 import Showcase from "../../components/events/innerPage/Showcase";
@@ -13,7 +13,6 @@ import Details from "../../components/events/innerPage/Details";
 import WorldChart from "../../components/WorldChart";
 import useGoogleMaps from "../../hooks/useGoogleMaps";
 import { getCategoryDetails } from "../../components/events/Category";
-import MapButtons from "../../components/events/innerPage/MapButtons";
 
 /**
  * This is the inner event page, it shows the details of the event.
@@ -36,9 +35,6 @@ const Event: NextPage = () => {
   const { selectedEvent, setSelectedEvent } = React.useContext(EventsContext)!;
 
   const [address, setAddress] = React.useState("");
-
-  const [showRoute, setShowRoute] = React.useState(false);
-  const [travelMode, setTravelMode] = React.useState("DRIVING");
 
   const { formattedAddressByLatLng } = useGoogleMaps();
 
@@ -104,16 +100,8 @@ const Event: NextPage = () => {
                 lat: selectedEvent?.location[1]!,
                 lng: selectedEvent?.location[0]!,
               }}
-              showRoute={showRoute}
-              setShowRoute={setShowRoute}
-              travelMode={travelMode}
+              showButtons={!!location}
             />
-            {location && (
-              <MapButtons
-                setShowRoute={setShowRoute}
-                setTravelMode={setTravelMode}
-              />
-            )}
           </>
         ) : (
           <WorldChart country={selectedEvent.country} className="h-[60vh]" />
