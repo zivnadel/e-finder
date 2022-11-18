@@ -5,12 +5,12 @@ import { useRouter } from "next/router";
 import EventsContext from "../../store/EventsContext";
 import FetchContext from "../../store/FetchContext";
 import EventsResponseModel from "../../models/EventsResponseModel";
-import Map from "../../components/ui/map/Map";
+import Map from "../../components/map/Map";
 import ErrorSection from "../../components/ui/ErrorSection";
 import LoadingSpinner from "../../components/ui/loading/LoadingSpinner";
 import Showcase from "../../components/events/innerPage/Showcase";
 import Details from "../../components/events/innerPage/Details";
-import WorldChart from "../../components/WorldChart";
+import WorldMap from "../../components/map/WorldMap";
 import useGoogleMaps from "../../hooks/useGoogleMaps";
 import { getCategoryDetails } from "../../components/events/Category";
 import Head from "next/head";
@@ -131,10 +131,7 @@ const Event: NextPage = () => {
                 }}
               />
             ) : (
-              <WorldChart
-                country={selectedEvent.country}
-                className="h-[60vh]"
-              />
+              <WorldMap country={selectedEvent.country} />
             )}
           </div>
         )

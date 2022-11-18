@@ -14,7 +14,7 @@ const Footer = () => {
     <Element
       as="footer"
       name="about"
-      className="bg-gradient-to-r text-white from-gray-400 to-gray-800 flex flex-col p-10 gap-5 items-center justify-center"
+      className="z-10 bg-gradient-to-r text-white from-gray-400 to-gray-800 flex flex-col p-10 gap-5 items-center justify-center"
     >
       <h2 className="drop-shadow-md text-5xl font-bold text-center">
         E-Finder

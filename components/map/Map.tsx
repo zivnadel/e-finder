@@ -7,8 +7,8 @@ import {
   useJsApiLoader,
 } from "@react-google-maps/api";
 import { Element } from "react-scroll";
-import { LatLng } from "../../../models/LocationModel";
-import ErrorSection from "../ErrorSection";
+import { LatLng } from "../../models/LocationModel";
+import ErrorSection from "../ui/ErrorSection";
 import MapButtons from "./MapButtons";
 
 interface Props {

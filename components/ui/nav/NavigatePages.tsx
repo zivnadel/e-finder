@@ -1,6 +1,7 @@
 import React from "react";
 
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { Link } from "react-scroll";
 import EventsContext from "../../../store/EventsContext";
 import FetchContext from "../../../store/FetchContext";
 
@@ -31,21 +32,25 @@ const NavigatePages: React.FC = () => {
     <div className="w-full flex items-center justify-center">
       <div className="m-5 flex items-center justify-between px-5 py-2 w-5/6 lg:w-3/6 rounded-full bg-gradient-to-r from-primary to-secondary">
         {events!.next && (
-          <FaChevronLeft
-            className="transition-all hover:opacity-70 text-5xl text-white cursor-pointer"
-            onClick={next}
-            pointerEvents={blockButtons ? "none" : "auto"}
-          />
+          <Link to="events">
+            <FaChevronLeft
+              className="transition-all hover:opacity-70 text-5xl text-white cursor-pointer"
+              onClick={next}
+              pointerEvents={blockButtons ? "none" : "auto"}
+            />
+          </Link>
         )}
         <p className="mx-5 text-4xl text-white font-bold justify-self-center">
           {page}
         </p>
         {events!.previous && (
-          <FaChevronRight
-            className="transition-all hover:opacity-70 text-5xl text-white cursor-pointer"
-            onClick={prev}
-            pointerEvents={blockButtons ? "none" : "auto"}
-          />
+          <Link to="events">
+            <FaChevronRight
+              className="transition-all hover:opacity-70 text-5xl text-white cursor-pointer"
+              onClick={prev}
+              pointerEvents={blockButtons ? "none" : "auto"}
+            />
+          </Link>
         )}
       </div>
     </div>

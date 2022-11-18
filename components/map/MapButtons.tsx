@@ -8,8 +8,8 @@ import {
   MdDirectionsTransit,
   MdDirectionsWalk,
 } from "react-icons/md";
-import RoundedButton from "../../ui/buttons/RoundedButton";
-import Tooltip from "../../ui/Tooltip";
+import RoundedButton from "../ui/buttons/RoundedButton";
+import Tooltip from "../ui/Tooltip";
 
 interface Props {
   setShowRoute: React.Dispatch<React.SetStateAction<boolean>>;
