@@ -28,16 +28,11 @@ const NavBar: React.FC = () => {
     setScrollPosition(window.scrollY);
   }, [scrollPosition]);
 
-  // bind and unbind the scroll event listener on mount and unmount
+  // bind the scroll event listener
   React.useEffect(() => {
     if (typeof window !== "undefined") {
       window.addEventListener("scroll", handleScroll);
     }
-    return () => {
-      if (typeof window !== "undefined") {
-        window.removeEventListener("scroll", handleScroll);
-      }
-    };
   }, [handleScroll, scrollPosition]);
 
   return (
