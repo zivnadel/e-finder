@@ -28,7 +28,7 @@ const Event: NextPage = () => {
 
   const { eventId } = router.query;
 
-  const { location } = React.useContext(EventsContext)!;
+  const { userLocation } = React.useContext(EventsContext)!;
 
   const { error, setError, isLoading, sendRequest } =
     React.useContext(FetchContext)!;
@@ -37,7 +37,7 @@ const Event: NextPage = () => {
 
   const [address, setAddress] = React.useState("");
 
-  const { formattedAddressByLatLng } = useGoogleMaps();
+  const { getCurrentPosition, formattedAddressByLatLng } = useGoogleMaps();
 
   const fetchRequiredData = React.useCallback(async () => {
     if (!selectedEvent && eventId) {
@@ -66,6 +66,10 @@ const Event: NextPage = () => {
         );
         setAddress(address);
       }
+
+      if (!userLocation) {
+        getCurrentPosition("USER");
+      }
     }
   }, [
     selectedEvent,
@@ -75,7 +79,9 @@ const Event: NextPage = () => {
     router.query.eventId,
     setSelectedEvent,
     setError,
+    userLocation,
     formattedAddressByLatLng,
+    getCurrentPosition,
   ]);
 
   React.useEffect(() => {
@@ -89,7 +95,8 @@ const Event: NextPage = () => {
       </Head>
       {error ? (
         <ErrorSection full error={error} />
-      ) : isLoading ? (
+      ) : // this ORs are for preventing loading flickering
+      isLoading || !userLocation || !selectedEvent ? (
         <LoadingSpinner asOverlay />
       ) : (
         selectedEvent && (
@@ -99,7 +106,11 @@ const Event: NextPage = () => {
               description={selectedEvent.description}
               className={getCategoryDetails(selectedEvent.category).image}
             />
-            <Details event={selectedEvent} address={address} />
+            <Details
+              event={selectedEvent}
+              userLocation={userLocation!}
+              address={address}
+            />
             {![
               "public-holidays",
               "school-holidays",
@@ -108,16 +119,17 @@ const Event: NextPage = () => {
               "daylight-savings",
               "academic",
             ].includes(selectedEvent.category) ? (
-              <>
-                <Map
-                  className="h-[70vh] md:h-[60vh]"
-                  latLng={{
-                    lat: selectedEvent?.location[1]!,
-                    lng: selectedEvent?.location[0]!,
-                  }}
-                  showButtons={!!location}
-                />
-              </>
+              <Map
+                className="h-[70vh] md:h-[60vh]"
+                latLng={{
+                  lat: selectedEvent?.location[1]!,
+                  lng: selectedEvent?.location[0]!,
+                }}
+                userLocation={{
+                  lat: userLocation?.lat!,
+                  lng: userLocation?.lng!,
+                }}
+              />
             ) : (
               <WorldChart
                 country={selectedEvent.country}
