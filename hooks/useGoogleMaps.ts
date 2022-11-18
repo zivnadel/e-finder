@@ -1,5 +1,5 @@
 import React from "react";
-import LocationModel from "../models/LocationModel";
+import LocationModel, { LatLng } from "../models/LocationModel";
 import EventsContext from "../store/EventsContext";
 import FetchContext from "../store/FetchContext";
 
@@ -12,10 +12,14 @@ const useGoogleMaps = () => {
   const { sendRequest, setError, setIsLoading } =
     React.useContext(FetchContext)!;
 
-  const { setLocation } = React.useContext(EventsContext)!;
+  const { setLocation, setUserLocation } = React.useContext(EventsContext)!;
 
   const geocodeByLatLng = React.useCallback(
-    async (lat: number, lng: number) => {
+    async (
+      lat: number,
+      lng: number,
+      whichLocation: "EVENTS" | "USER" | "BOTH" = "EVENTS"
+    ) => {
       const locationData = await sendRequest<any>(
         `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`
       );
@@ -48,9 +52,24 @@ const useGoogleMaps = () => {
       // This is to prevent flickering for a second between the
       // fetch location and fetch events
       setIsLoading(true);
-      setLocation(location);
+
+      switch (whichLocation) {
+        case "EVENTS":
+          setLocation(location);
+          break;
+        case "USER":
+          setUserLocation(location);
+          // settings user location doesnt trigger a fetch event,
+          // so we need to set loading to false manually
+          setIsLoading(false);
+          break;
+        case "BOTH":
+          setLocation(location);
+          setUserLocation(location);
+          break;
+      }
     },
-    [sendRequest, setError, setIsLoading, setLocation]
+    [sendRequest, setError, setIsLoading, setLocation, setUserLocation]
   );
 
   const formattedAddressByLatLng = React.useCallback(
@@ -71,7 +90,10 @@ const useGoogleMaps = () => {
   );
 
   const geocodeByAddress = React.useCallback(
-    async (address: string) => {
+    async (
+      address: string,
+      whichLocation: "EVENTS" | "USER" | "BOTH" = "EVENTS"
+    ) => {
       const locationData = await sendRequest<any>(
         `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`
       );
@@ -105,17 +127,34 @@ const useGoogleMaps = () => {
       // This is to prevent flickering for a second between the
       // fetch location and fetch events
       setIsLoading(true);
-      setLocation(location);
+
+      switch (whichLocation) {
+        case "EVENTS":
+          setLocation(location);
+          break;
+        case "USER":
+          setUserLocation(location);
+          setIsLoading(false);
+          break;
+        case "BOTH":
+          setLocation(location);
+          setUserLocation(location);
+          break;
+      }
     },
-    [sendRequest, setError, setIsLoading, setLocation]
+    [sendRequest, setError, setIsLoading, setLocation, setUserLocation]
   );
 
   // callback for fetching the location using Google Geocode API
   const handleCurrentPosition = React.useCallback(
-    async (position: GeolocationPosition) => {
+    async (
+      position: GeolocationPosition,
+      whichLocation: "EVENTS" | "USER" | "BOTH" = "EVENTS"
+    ) => {
       await geocodeByLatLng(
         position.coords.latitude,
-        position.coords.longitude
+        position.coords.longitude,
+        whichLocation
       );
     },
     [geocodeByLatLng]
@@ -138,13 +177,16 @@ const useGoogleMaps = () => {
 
   // fetch the current location and the events in the area when the component mounts
 
-  const getCurrentPosition = React.useCallback(() => {
-    setIsLoading(true);
-    navigator.geolocation.getCurrentPosition(
-      handleCurrentPosition,
-      handleGeolocationError
-    );
-  }, [handleCurrentPosition, handleGeolocationError, setIsLoading]);
+  const getCurrentPosition = React.useCallback(
+    (whichLocation: "EVENTS" | "USER" | "BOTH" = "EVENTS") => {
+      setIsLoading(true);
+      navigator.geolocation.getCurrentPosition(
+        (position) => handleCurrentPosition(position, whichLocation),
+        handleGeolocationError
+      );
+    },
+    [handleCurrentPosition, handleGeolocationError, setIsLoading]
+  );
 
   return {
     geocodeByAddress,

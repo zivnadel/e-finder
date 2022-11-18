@@ -23,7 +23,7 @@ const Events: React.FC = () => {
 
   React.useEffect(() => {
     if (!events) {
-      getCurrentPosition();
+      getCurrentPosition("BOTH");
     }
   }, [events, getCurrentPosition]);
 

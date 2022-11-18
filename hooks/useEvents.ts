@@ -19,6 +19,9 @@ const useEvents = () => {
   const [sort, setSort] = React.useState<string>("date");
   const [categories, setCategories] = React.useState<CategoryModel[]>([]);
   const [location, setLocation] = React.useState<LocationModel | null>(null);
+  const [userLocation, setUserLocation] = React.useState<LocationModel | null>(
+    null
+  );
   const [events, setEvents] = React.useState<EventsResponseModel | null>(null);
   const [selectedEvent, setSelectedEvent] = React.useState<EventModel | null>(
     null
@@ -91,6 +94,8 @@ const useEvents = () => {
     setSelectedEvent,
     location,
     setLocation,
+    userLocation,
+    setUserLocation,
     page,
     setPage,
     sort,

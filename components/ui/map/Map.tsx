@@ -8,21 +8,18 @@ import {
 } from "@react-google-maps/api";
 import { Element } from "react-scroll";
 import { LatLng } from "../../../models/LocationModel";
-import EventsContext from "../../../store/EventsContext";
 import ErrorSection from "../ErrorSection";
 import MapButtons from "./MapButtons";
 
 interface Props {
   className?: string;
   latLng: LatLng;
-  showButtons?: boolean;
+  userLocation: LatLng;
 }
 
 // A Google map component from the react-google-maps library
 
-const Map: React.FC<Props> = ({ className, latLng, showButtons }) => {
-  const { location } = React.useContext(EventsContext)!;
-
+const Map: React.FC<Props> = ({ className, latLng, userLocation }) => {
   const [showRoute, setShowRoute] = React.useState(false);
   const [travelMode, setTravelMode] = React.useState("DRIVING");
 
@@ -52,9 +49,8 @@ const Map: React.FC<Props> = ({ className, latLng, showButtons }) => {
     <ErrorSection error="Map Loading Failed!" />
   ) : isLoaded ? (
     <Element name="map" className="relative">
-      {showButtons && (
-        <MapButtons setShowRoute={setShowRoute} setTravelMode={setTravelMode} />
-      )}
+      <MapButtons setShowRoute={setShowRoute} setTravelMode={setTravelMode} />
+
       <div className={className}>
         <GoogleMap
           mapContainerStyle={{ width: "100%", height: "100%" }}
@@ -62,11 +58,11 @@ const Map: React.FC<Props> = ({ className, latLng, showButtons }) => {
           zoom={14}
         >
           {!showRoute && <Marker position={latLng} />}
-          {showRoute && !directionsResponse && location && (
+          {showRoute && !directionsResponse && (
             <DirectionsService
               options={{
                 destination: latLng,
-                origin: { lat: location?.lat!, lng: location?.lng! },
+                origin: { lat: userLocation.lat, lng: userLocation.lng },
                 travelMode: travelMode as any,
               }}
               callback={directionsCallback}

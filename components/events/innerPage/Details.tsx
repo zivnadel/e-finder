@@ -17,15 +17,19 @@ import { BsHourglassSplit, BsQuestionCircleFill } from "react-icons/bs";
 import { getCategoryDetails } from "../Category";
 import Labels from "./Labels";
 import { MdOutlineLocalFlorist, MdOutlineLocationCity } from "react-icons/md";
+import LocationModel from "../../../models/LocationModel";
+import distance from "../../../utils/distance";
+import { GiPathDistance } from "react-icons/gi";
 
 interface Props {
   event: EventModel;
+  userLocation: LocationModel;
   address: string;
 }
 
 // a container for all the possible detail boxes
 
-const Details: React.FC<Props> = ({ event, address }) => {
+const Details: React.FC<Props> = ({ event, userLocation, address }) => {
   const { icon, description } = getCategoryDetails(event.category);
 
   const entity = event.entities.find(
@@ -170,8 +174,37 @@ const Details: React.FC<Props> = ({ event, address }) => {
         ) : (
           <></>
         )}
+        {userLocation && (
+          <DetailBox
+            title="Distance"
+            content={`${(
+              distance(
+                event.location[1],
+                event.location[0],
+                userLocation.lat,
+                userLocation.lng
+              ) / 1000
+            )
+              .toFixed(1)
+              .toString()}km`}
+            description={
+              "The distance between your location to the event (in kilometers)"
+            }
+            icon={<GiPathDistance />}
+          />
+        )}
       </div>
-      {event.labels ? <Labels labels={event.labels} /> : <></>}
+      {event.labels ? (
+        <Labels
+          labels={event.labels}
+          active={
+            new Date() >= new Date(event.start) &&
+            new Date() <= new Date(event.end)
+          }
+        />
+      ) : (
+        <></>
+      )}
       <p className="pl-6 mt-4 mb-1 text-gray-400 font-medium text-base">{`Last updated on ${updatedDate} at ${updatedTime}`}</p>
     </Element>
   );

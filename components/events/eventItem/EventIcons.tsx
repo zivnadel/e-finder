@@ -24,7 +24,7 @@ const EventIcons: React.FC<Props> = ({
 }) => {
   const { location: currentLocation } = React.useContext(EventsContext)!;
 
-  // calculate the distance from the distance icon
+  // calculate the distance for the distance icon
   const distanceInKm =
     distance(
       location.lat,

@@ -18,7 +18,7 @@ const WorldChart: React.FC<Props> = ({ country, className }) => {
   const data = [["Country"], [country]];
 
   return (
-    <Element name="map" className={className}>
+    <Element name="map" className={`mb-24 z-10 ${className}`}>
       <div className="flex items-center justify-center">
         <Title text="Event Region" className="w-2/6 mb-0 md:mb-5" />
       </div>

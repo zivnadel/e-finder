@@ -12,6 +12,8 @@ type EventsContextModel = {
   setSelectedEvent: React.Dispatch<React.SetStateAction<EventModel | null>>;
   location: LocationModel | null;
   setLocation: React.Dispatch<React.SetStateAction<LocationModel | null>>;
+  userLocation: LocationModel | null;
+  setUserLocation: React.Dispatch<React.SetStateAction<LocationModel | null>>;
   page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
   sort: string;
@@ -39,6 +41,8 @@ export const EventsContextProvider: React.FC<{ children: React.ReactNode }> = ({
     setSelectedEvent,
     location,
     setLocation,
+    userLocation,
+    setUserLocation,
     page,
     setPage,
     sort,
@@ -60,6 +64,8 @@ export const EventsContextProvider: React.FC<{ children: React.ReactNode }> = ({
         setSelectedEvent,
         location,
         setLocation,
+        userLocation,
+        setUserLocation,
         page,
         setPage,
         sort,
