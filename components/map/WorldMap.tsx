@@ -24,10 +24,10 @@ const WorldMap: React.FC<Props> = ({ country }) => {
   return (
     <>
       <ReactTooltip>{tooltip}</ReactTooltip>
-      <Element name="map" className={`flex gap-3 items-center flex-col`}>
-        <Title text="Event Region" className="w-2/6 mb-0 md:mb-5" />
+      <Element name="map" className={`flex gap-2 items-center flex-col`}>
+        <Title text="Event Region" className="w-4/6 md:w-2/6" />
         <div data-tip="">
-          <ComposableMap className="w-full h-[40vh] md:h-[70vh]">
+          <ComposableMap className="w-[100vw] h-[35vh] md:h-[60vh]">
             <ZoomableGroup>
               <Geographies geography={"/world.json"}>
                 {({ geographies }) =>
