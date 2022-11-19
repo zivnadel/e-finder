@@ -52,6 +52,15 @@ const Details: React.FC<Props> = ({ event, userLocation, address }) => {
   const updatedTime =
     event.updated?.split("T")[1].split(":").slice(0, 2).join(":") || "";
 
+  const isNonAttendance = ![
+    "public-holidays",
+    "school-holidays",
+    "observances",
+    "politics",
+    "daylight-savings",
+    "academic",
+  ].includes(event.category);
+
   return (
     <Element name="details">
       <div className="flex flex-wrap items-stretch justify-center mx-5 gap-5">
@@ -157,14 +166,7 @@ const Details: React.FC<Props> = ({ event, userLocation, address }) => {
         ) : (
           <></>
         )}
-        {![
-          "public-holidays",
-          "school-holidays",
-          "observances",
-          "politics",
-          "daylight-savings",
-          "academic",
-        ].includes(event.category) ? (
+        {isNonAttendance ? (
           <DetailBox
             title="Address"
             content={address}
@@ -174,7 +176,7 @@ const Details: React.FC<Props> = ({ event, userLocation, address }) => {
         ) : (
           <></>
         )}
-        {userLocation && (
+        {userLocation && isNonAttendance && (
           <DetailBox
             title="Distance"
             content={`${(
