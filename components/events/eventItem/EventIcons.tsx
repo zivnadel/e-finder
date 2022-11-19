@@ -34,6 +34,7 @@ const EventIcons: React.FC<Props> = ({
     ) / 1000;
 
   return (
+    // local rank icon
     <div className="flex items-center justify-center m-4 gap-4">
       {rank !== undefined && rank > 0 ? (
         <EventIcon
@@ -53,6 +54,7 @@ const EventIcons: React.FC<Props> = ({
       ) : (
         <></>
       )}
+      {/* event visibility icon */}
       {isPrivate !== undefined ? (
         <EventIcon
           className={`bg-gradient-to-r ${
@@ -70,6 +72,7 @@ const EventIcons: React.FC<Props> = ({
       ) : (
         <></>
       )}
+      {/* distance icon */}
       {![
         "public-holidays",
         "school-holidays",
@@ -80,7 +83,7 @@ const EventIcons: React.FC<Props> = ({
       ].includes(category) ? (
         <EventIcon
           className="text-md text-center bg-gradient-to-r from-pink-300 to-purple-500"
-          tooltip="Distance (km) from you to the location of the event"
+          tooltip="Distance (km) from you (or your selected location) <br> to to the event"
           text={`${
             distanceInKm.toFixed().toString().length > 2
               ? distanceInKm.toFixed()

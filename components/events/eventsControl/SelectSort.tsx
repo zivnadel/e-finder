@@ -4,6 +4,7 @@ import { GoCheck } from "react-icons/go";
 
 import DropList from "../../ui/DropList";
 
+// data for the list
 const sortOptions = [
   { name: "date", color: "text-green-500", bgColor: "bg-green-500" },
   { name: "rate", color: "text-blue-500", bgColor: "bg-blue-500" },

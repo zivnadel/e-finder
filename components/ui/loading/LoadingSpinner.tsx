@@ -31,7 +31,6 @@ const LoadingSpinner: React.FC<Props> = ({ asOverlay, transparent }) => {
             fill="currentFill"
           />
         </svg>
-        <span className="sr-only">Loading...</span>
       </div>
     </div>
   );

@@ -20,6 +20,7 @@ interface Props {
 // (cateogories and sorting methods)
 
 const FiltersDisplay: React.FC<Props> = ({ categories, radius, sort }) => {
+  // create line brakes dynamically for the tooltip
   const constructCategoryTooltip = () => {
     let tooltip = "";
 

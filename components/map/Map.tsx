@@ -20,15 +20,15 @@ interface Props {
 // A Google map component from the react-google-maps library
 
 const Map: React.FC<Props> = ({ className, latLng, userLocation }) => {
+  // for directions
   const [showRoute, setShowRoute] = React.useState(false);
   const [travelMode, setTravelMode] = React.useState("DRIVING");
+  const [directionsResponse, setDirectionsResponse] = React.useState<any>(null);
 
   const { isLoaded, loadError } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY!,
   });
-
-  const [directionsResponse, setDirectionsResponse] = React.useState<any>(null);
 
   const directionsCallback = React.useCallback((res: any) => {
     if (res !== null) {
@@ -59,6 +59,7 @@ const Map: React.FC<Props> = ({ className, latLng, userLocation }) => {
         >
           {!showRoute && <Marker position={latLng} />}
           {showRoute && !directionsResponse && (
+            // component wrapping the directions service
             <DirectionsService
               options={{
                 destination: latLng,
@@ -69,6 +70,7 @@ const Map: React.FC<Props> = ({ className, latLng, userLocation }) => {
             />
           )}
           {showRoute && directionsResponse && (
+            // render the directions if there is a response
             <DirectionsRenderer
               options={{
                 directions: directionsResponse,

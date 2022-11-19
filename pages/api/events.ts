@@ -6,6 +6,11 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { dataExchangeClient, predictHQ } from "../../lib/aws-data-exchange";
 import EventsResponseModel from "../../models/EventsResponseModel";
 
+/**
+ * API endpoint to fetch events from PredictHQ API
+ * Practically this is a proxy to the PredictHQ API
+ */
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse

@@ -15,6 +15,7 @@ As well as auto fetching the relevant events on startup and on change
 const useEvents = () => {
   const { sendRequest } = React.useContext(FetchContext)!;
 
+  // all the states related to the events
   const [page, setPage] = React.useState(1);
   const [sort, setSort] = React.useState<string>("date");
   const [categories, setCategories] = React.useState<CategoryModel[]>([]);
@@ -29,6 +30,7 @@ const useEvents = () => {
   const [radius, setRadius] = React.useState(5);
   const [query, setQuery] = React.useState("");
 
+  // construct the date query as required by PredictHQ API
   const getSortOption = React.useCallback(() => {
     switch (sort) {
       case "date":
@@ -69,6 +71,7 @@ const useEvents = () => {
     return `/api/events?${queryString}`;
   }, [location, radius, getSortOption, page, categories, query]);
 
+  // send the query to the API and update the events state on mount and on change
   React.useEffect(() => {
     const url = constructUrl();
     if (location) {

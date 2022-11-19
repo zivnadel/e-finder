@@ -7,7 +7,6 @@ import {
 } from "react-simple-maps";
 import { Element } from "react-scroll";
 import Title from "../ui/Title";
-import Tooltip from "../ui/Tooltip";
 import ReactTooltip from "react-tooltip";
 
 interface Props {
@@ -21,13 +20,17 @@ interface Props {
 const WorldMap: React.FC<Props> = ({ country }) => {
   const [tooltip, setTooltip] = React.useState("");
 
+  React.useEffect(() => {
+    console.log(country);
+  }, [country]);
+
   return (
     <>
       <ReactTooltip>{tooltip}</ReactTooltip>
       <Element name="map" className={`flex gap-2 items-center flex-col`}>
         <Title text="Event Region" className="w-4/6 md:w-2/6" />
         <div data-tip="">
-          <ComposableMap className="w-[100vw] h-[35vh] md:h-[60vh]">
+          <ComposableMap className="w-screen h-[35vh] md:h-[60vh]">
             <ZoomableGroup>
               <Geographies geography={"/world.json"}>
                 {({ geographies }) =>
@@ -49,6 +52,9 @@ const WorldMap: React.FC<Props> = ({ country }) => {
                             }
                           : undefined
                       }
+                      onClick={() => {
+                        console.log(geo.properties.iso_a2);
+                      }}
                       stroke="#c9c9cf"
                       style={{
                         default: {

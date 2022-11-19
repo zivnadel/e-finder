@@ -1,6 +1,6 @@
 import React from "react";
 
-// a view represnting a loading a title (with a background)
+// a component represnting a loading a title (with a background)
 
 const LoadingText: React.FC = () => {
   return (

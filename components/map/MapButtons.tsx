@@ -51,6 +51,7 @@ const MapButtons: React.FC<Props> = ({ setShowRoute, setTravelMode }) => {
     <>
       <Tooltip />
       <div className="absolute top-16 z-10 m-3">
+        {/* Hamburger button to toggle the menu */}
         <RoundedButton
           className="mb-3 text-black from-white to-white"
           dataTip="Directions"

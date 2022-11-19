@@ -1,7 +1,14 @@
 {
   "name": "e-finder",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "description": "E-Finder is a platform to browse and discover events everywhere: near your house, and even beyond the ocean.",
+  "homepage": "https://e-finder.vercel.app",
+  "license": "MIT",
+  "author": "Ziv Nadel",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zivnadel/e-finder"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",

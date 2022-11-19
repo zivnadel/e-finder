@@ -8,7 +8,7 @@ interface Props {
   className?: string;
 }
 
-// component that wraps the next/link component for nav itemss
+// component that wraps the next/link component for nav items
 
 const NavItem: React.FC<Props> = ({ href, children, className }) => {
   return (

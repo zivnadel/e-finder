@@ -82,6 +82,7 @@ const Search: React.FC = () => {
               <FaSearchLocation className="text-2xl" />
             )}
           </SquareButton>
+          {/* toggle button for the search type (events / location) FOR NON MOBILE DEVICES */}
           <SquareButton
             type="button"
             className="hidden md:block"
@@ -95,6 +96,7 @@ const Search: React.FC = () => {
             )}
           </SquareButton>
         </div>
+        {/* For mobile devices */}
         <SwitchSearchButton
           onClick={changeSearchHandler}
           searchEvents={searchEvents}

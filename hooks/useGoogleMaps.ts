@@ -14,6 +14,10 @@ const useGoogleMaps = () => {
 
   const { setLocation, setUserLocation } = React.useContext(EventsContext)!;
 
+  /**
+   * This function applies the location to the requested state (events location, user location or both)
+   * It receives longitude and latitude of the user and uses the Google Geocode API to get the location
+   */
   const geocodeByLatLng = React.useCallback(
     async (
       lat: number,
@@ -72,6 +76,10 @@ const useGoogleMaps = () => {
     [sendRequest, setError, setIsLoading, setLocation, setUserLocation]
   );
 
+  /**
+   * This function simply returns the formatted address of the location
+   * It receives the location as latitude and longitude and uses the Google Geocode API to get the address
+   */
   const formattedAddressByLatLng = React.useCallback(
     async (lat: number, lng: number) => {
       const locationData = await sendRequest<any>(
@@ -89,6 +97,10 @@ const useGoogleMaps = () => {
     [sendRequest, setError]
   );
 
+  /**
+   * This function applies the location to the requested state (events location, user location or both)
+   * It receives an address and uses the Google Geocode API to get the location
+   */
   const geocodeByAddress = React.useCallback(
     async (
       address: string,
@@ -176,7 +188,6 @@ const useGoogleMaps = () => {
   );
 
   // fetch the current location and the events in the area when the component mounts
-
   const getCurrentPosition = React.useCallback(
     (whichLocation: "EVENTS" | "USER" | "BOTH" = "EVENTS") => {
       setIsLoading(true);

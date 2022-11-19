@@ -20,17 +20,10 @@ const Footer = () => {
         E-Finder
       </h2>
       <p className="text-lg text-center">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe sit
-        veniam facere expedita, ex libero eos ab! Accusamus nesciunt expedita
-        nostrum minus, iste perferendis eos vitae eaque quas quo animi dicta
-        eligendi aspernatur dolorem possimus illo impedit blanditiis officia at
-        ullam a qui nihil? Culpa explicabo libero a accusamus maxime deserunt
-        aut, obcaecati natus odit asperiores impedit non quis, omnis ea hic?
-        Inventore illo, ullam velit facilis aut expedita consectetur commodi
-        cupiditate accusantium placeat eius labore iusto laboriosam eos
-        perspiciatis a quasi autem harum, rem neque deleniti reiciendis
-        veritatis, assumenda non. Modi natus, repudiandae qui aspernatur quos
-        rem assumenda hic.
+        E-Finder is a platform to browse and discover events everywhere: near
+        your house, and even beyond the ocean. E-Finder allows you to find
+        events based on your interests, and advanced filters. Powered by the
+        PredictHQ API, every event is up-to-date, accurate and in your reach.
       </p>
       {/* Social Icons */}
       <div className="flex w-5/6 gap-3 items-center justify-center">

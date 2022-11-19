@@ -36,6 +36,7 @@ const NavBar: React.FC = () => {
   }, [handleScroll, scrollPosition]);
 
   return (
+    // transition to smoothly hide and show the navbar
     <Transition
       show={visible}
       as="nav"

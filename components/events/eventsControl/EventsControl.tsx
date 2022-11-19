@@ -49,6 +49,7 @@ const EventsControl: React.FC = () => {
   };
 
   const clearFilters = () => {
+    // reset all the filters
     setSort("date");
     setSelectedSort("date");
     setRadius(5);
@@ -96,6 +97,7 @@ const EventsControl: React.FC = () => {
         onClick={showFiltersClickedHandler}
         showFilters={showFilters}
       />
+      {/* Transition to make the showing of the layout smooth */}
       <Transition
         show={showFilters}
         enter="transition-opacity duration-200"

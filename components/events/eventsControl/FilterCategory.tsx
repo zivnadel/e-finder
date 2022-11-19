@@ -5,6 +5,7 @@ import CategoryModel from "../../../models/CategoryModel";
 
 import DropList from "../../ui/DropList";
 
+// data for the list
 const categories = [
   { name: "community", color: "text-green-500", bgColor: "bg-green-500" },
   { name: "conferences", color: "text-emerald-500", bgColor: "bg-emerald-500" },
