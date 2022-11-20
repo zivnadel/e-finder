@@ -86,3 +86,5 @@ NEXT_PUBLIC_GOOGLE_API_KEY=Your_Google_API_Key
 ## License
 
 E-Finder is open source software under [MIT License](https://github.com/zivnadel/e-finder/blob/master/LICENSE.md)
+
+@zivnadel
