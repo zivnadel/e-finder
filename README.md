@@ -1,4 +1,9 @@
 ![20221119_225447_0000](https://user-images.githubusercontent.com/52624380/202915790-2c1743d8-6f7b-48a1-a8be-316142c7eb3f.png)
+<p align="center">
+<img alt="License" src="https://img.shields.io/github/license/zivnadel/e-finder.svg"/>
+<img alt="Version" src="https://img.shields.io/github/v/release/zivnadel/e-finder?display_name=tag"/>
+<img alt="Stars" src="https://img.shields.io/github/stars/zivnadel/e-finder.svg"/>
+</p>
 ## Inspiration
 
 I have always needed a tool to browse activities or interesting things to do around my location, but I have never got a chance to implement such a thing. Most of the worldwide solutions for event-exploration don't have good coverage in my country, Israel, so even if such a service existed, it wasn't fully relevant for me. While browsing the hackathon's providers, I stumbled upon the PredictHQ API, and this old idea floated back into my mind. I saw the capabilities of this API, and thought it could be a perfect match for my idea. 
@@ -47,6 +52,8 @@ AWS, AWS SDK, AWS Data Exchange, NextJS, React, TypeScript, TailwindCSS, Predict
 ![Screenshot_20221120-192251_Kiwi Browser](https://user-images.githubusercontent.com/52624380/202917237-980c9beb-37fd-4348-97ee-b9f54daefec9.jpg)
 
 ## Installation
+
+**In order to run the app on your local machine, you must have Node installed on your machine.**
 
 ### Clone
 Clone this GitHub repository using the git CLI as shown below, or other methods.
