@@ -4,6 +4,7 @@
 <img alt="Version" src="https://img.shields.io/github/v/release/zivnadel/e-finder?display_name=tag"/>
 <img alt="Stars" src="https://img.shields.io/github/stars/zivnadel/e-finder.svg"/>
 </p>
+
 ## Inspiration
 
 I have always needed a tool to browse activities or interesting things to do around my location, but I have never got a chance to implement such a thing. Most of the worldwide solutions for event-exploration don't have good coverage in my country, Israel, so even if such a service existed, it wasn't fully relevant for me. While browsing the hackathon's providers, I stumbled upon the PredictHQ API, and this old idea floated back into my mind. I saw the capabilities of this API, and thought it could be a perfect match for my idea. 
