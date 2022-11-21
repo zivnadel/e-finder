@@ -1,6 +1,6 @@
 ![20221119_225447_0000](https://user-images.githubusercontent.com/52624380/202915790-2c1743d8-6f7b-48a1-a8be-316142c7eb3f.png)
 <p align="center">
-<img alt="License" src="https://img.shields.io/github/license/zivnadel/e-finder.svg"/>
+<img alt="License" src="https://img.shields.io/github/license/zivnadel/e-finder"/>
 <img alt="Version" src="https://img.shields.io/github/v/release/zivnadel/e-finder?display_name=tag"/>
 <img alt="Stars" src="https://img.shields.io/github/stars/zivnadel/e-finder.svg"/>
 </p>
